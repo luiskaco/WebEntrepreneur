@@ -329,6 +329,9 @@ add_action( 'customize_register', 'empoderadas_customize_register' );
    6. AUTO-CONFIGURACIÓN AL ACTIVAR EL TEMA (CREACIÓN DE FRONT PAGE Y MENÚ)
    ========================================================================== */
 function empoderadas_auto_setup_on_activation() {
+    // Requerir el archivo de soporte de imágenes de administración de WordPress
+    require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
     // 6.1. Crear la página de inicio si no existe
     $page_slug = 'feria-inicio';
     $page_title = 'Inicio Feria';
