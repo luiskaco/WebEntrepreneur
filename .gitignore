@@ -1,0 +1,22 @@
+# Ignorar todo por defecto
+*
+
+# Permitir carpetas necesarias
+!wp-content/
+!wp-content/themes/
+!wp-content/themes/Emprendedora_y_empredendores_brief/
+!wp-content/themes/Emprendedora_y_empredendores_brief/**
+
+!.agents/
+!.agents/**
+
+!.claude/
+!.claude/**
+
+# Permitir archivos markdown y configuraciones en la raíz
+!*.md
+!.gitignore
+
+# Ignorar archivos temporales ocultos del sistema
+.DS_Store
+Thumbs.db

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://orangeia.test/)",
+      "Bash(grep -oE '<nav class=\"header__nav\">.{0,600}')",
+      "Bash(curl -s http://orangeia.test/blog/)",
+      "Bash(which wp *)",
+      "Read(//c/laragon/bin/**)",
+      "Bash(/c/laragon/bin/mysql/mysql-8.4.3-winx64/bin/mysql.exe -uroot orangeIA --default-character-set=utf8mb4 -e ' *)"
+    ]
+  }
+}

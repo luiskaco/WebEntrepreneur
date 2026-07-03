@@ -1,0 +1,107 @@
+/*
+Theme Name: Emprendedora y Emprendedores Brief
+Theme URI: https://orangelatam.com/
+Author: Antigravity AI
+Author URI: https://orangelatam.com/
+Description: Tema premium autogestionable y autoinstalable para la feria de emprendedoras.
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: empoderadas-theme
+*/
+
+/* ==========================================================================
+   DECLARACIÓN DE FUENTES LOCALES (CUSTOM FONTS)
+   ========================================================================== */
+
+/* Atacama Variable */
+@font-face {
+    font-family: 'Atacama';
+    src: url('fonts/AtacamaTrial-VF-BF63b76d7eda2cb.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Golden Hopes Script */
+@font-face {
+    font-family: 'Golden Hopes';
+    src: url('fonts/GoldenHopes_PERSONAL_USE_ONLY.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Gotham Narrow Black */
+@font-face {
+    font-family: 'Gotham Narrow';
+    src: url('fonts/Gotham Narrow-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Gotham Narrow Book Italic */
+@font-face {
+    font-family: 'Gotham Narrow';
+    src: url('fonts/Gotham Narrow-Book Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Myriad Pro Regular */
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('fonts/MyriadPro-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Obviously Narrow Family */
+@font-face {
+    font-family: 'Obviously Narrow';
+    src: url('fonts/fonnts.com-Obviously_Narw_Blck.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Obviously Narrow';
+    src: url('fonts/ObviouslyDemo-NarrowBold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Obviously Narrow';
+    src: url('fonts/ObviouslyDemo-NarrowSemibold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Bernard MT Condensed */
+@font-face {
+    font-family: 'Bernard MT';
+    src: url('fonts/BernardMTCondensed.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Estilos globales y reset inicial */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #FFF9FB;
+    color: #4A3560;
+}
+

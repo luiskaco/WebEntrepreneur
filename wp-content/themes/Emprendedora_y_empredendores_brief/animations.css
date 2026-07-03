@@ -1,0 +1,78 @@
+@keyframes eeFloat { 0%,100%{ transform: rotate(-5deg) translateY(0px);} 50%{ transform: rotate(-5deg) translateY(-8px);} }
+@keyframes eeFadeInUp { from{ opacity:0; transform:translateY(28px);} to{ opacity:1; transform:translateY(0);} }
+@keyframes eeFadeIn { from{ opacity:0;} to{ opacity:1;} }
+
+.eeReveal { opacity:0; transform:translateY(18px); transition:opacity .45s cubic-bezier(.22,.9,.32,1), transform .45s cubic-bezier(.22,.9,.32,1); }
+.eeReveal.eeVisible { opacity:1; transform:translateY(0); }
+.eeRevealBird { opacity:0; transform:translateY(120px); transition:opacity .9s cubic-bezier(.22,.9,.32,1), transform .9s cubic-bezier(.22,.9,.32,1); }
+.eeRevealBird.eeVisible { opacity:1; transform:translateY(0); }
+.eeDelay1.eeVisible { transition-delay:.1s; }
+.eeDelay2.eeVisible { transition-delay:.2s; }
+.eeDelay3.eeVisible { transition-delay:.3s; }
+
+.eeCard { transition: transform .35s ease, box-shadow .35s ease; }
+.eeCard:hover { transform: translateY(-6px); }
+
+/* Animación Interactiva para Tarjetas de Agenda */
+.eeAgendaCard {
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.eeAgendaCard .eeAgendaBg {
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s;
+}
+.eeAgendaCard img {
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.eeAgendaCard .eeAgendaDot {
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s;
+}
+.eeAgendaCard .eeAgendaContent {
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s;
+}
+
+/* Efectos en Hover */
+.eeAgendaCard:hover {
+  transform: translateY(-4px);
+}
+.eeAgendaCard:hover .eeAgendaBg {
+  transform: scaleX(1.025) scaleY(1.05);
+  opacity: 0.9;
+}
+.eeAgendaCard:hover img {
+  transform: scale(1.08);
+}
+.eeAgendaCard:hover .eeAgendaDot {
+  transform: translateY(-50%) scale(1.3);
+}
+.eeAgendaCard:hover .eeAgendaContent {
+  box-shadow: 0 12px 30px rgba(74, 53, 80, 0.12);
+}
+
+
+.eeBtn { transition: transform .25s ease, box-shadow .25s ease; }
+.eeBtn:hover { transform: scale(1.08); }
+
+.eeNavLink { position:relative; }
+.eeNavLink::after { content:''; position:absolute; left:0; bottom:-4px; width:0; height:2px; background:#fff; transition:width .3s ease; }
+.eeNavLink:hover::after { width:100%; }
+
+.eeHeader { background-color: transparent; transition: background-color .3s ease, box-shadow .3s ease; }
+
+@media (max-width: 720px) {
+  .eeNavDesktop { display: none !important; }
+  .eeHamburger { display: flex !important; }
+}
+.eeHeader.eeHeaderScrolled { background-color: #E18EBB; box-shadow: 0 4px 16px rgba(74,53,80,0.25); }
+
+.eeHeroFade { animation: eeFadeInUp .9s cubic-bezier(.22,.9,.32,1) both; }
+.eeHeroFadeDelay { animation: eeFadeInUp .9s cubic-bezier(.22,.9,.32,1) .15s both; }
+.eeHeroImgWrap { animation: eeFloat 5s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .eeReveal, .eeReveal.eeVisible, .eeHeroFade, .eeHeroFadeDelay, .eeHeroImgWrap, .eeCard, .eeBtn {
+    animation:none !important;
+    transition:none !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+}
