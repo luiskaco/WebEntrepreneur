@@ -586,6 +586,42 @@ function empoderadas_auto_setup_on_activation() {
                     }
                 }
             }
+    }
+
+    // 6.5. Asignar la imagen destacada de la página principal (Home) por defecto
+    $front_page_id = get_option( 'page_on_front' );
+    if ( ! $front_page_id ) {
+        // Buscar la primera página que exista
+        $pages = get_pages( array( 'number' => 1 ) );
+        if ( ! empty( $pages ) ) {
+            $front_page_id = $pages[0]->ID;
+        }
+    }
+
+    if ( $front_page_id && ! has_post_thumbnail( $front_page_id ) ) {
+        $featured_img_path = get_template_directory() . '/uploads/empoderadas_emprendedoras.webp';
+        if ( file_exists( $featured_img_path ) ) {
+            $wp_upload_dir = wp_upload_dir();
+            $filename = 'empoderadas_emprendedoras.webp';
+            $copy_path = $wp_upload_dir['path'] . '/' . $filename;
+            
+            if ( copy( $featured_img_path, $copy_path ) ) {
+                $filetype = wp_check_filetype( $filename, null );
+                $attachment = array(
+                    'guid'           => $wp_upload_dir['url'] . '/' . $filename,
+                    'post_mime_type' => $filetype['type'],
+                    'post_title'     => 'Feria Empoderadas y Emprendedoras',
+                    'post_content'   => '',
+                    'post_status'    => 'inherit'
+                );
+                
+                $attach_id = wp_insert_attachment( $attachment, $copy_path, $front_page_id );
+                if ( ! is_wp_error( $attach_id ) ) {
+                    $attach_data = wp_generate_attachment_metadata( $attach_id, $copy_path );
+                    wp_update_attachment_metadata( $attach_id, $attach_data );
+                    set_post_thumbnail( $front_page_id, $attach_id );
+                }
+            }
         }
     }
 }
