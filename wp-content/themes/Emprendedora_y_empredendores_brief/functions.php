@@ -586,6 +586,7 @@ function empoderadas_auto_setup_on_activation() {
                     }
                 }
             }
+        }
     }
 
     // 6.5. Asignar la imagen destacada de la página principal (Home) por defecto
