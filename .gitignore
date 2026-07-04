@@ -13,6 +13,9 @@
 !.claude/
 !.claude/**
 
+!docs/
+!docs/**
+
 # Permitir archivos markdown y configuraciones en la raíz
 !*.md
 !.gitignore
