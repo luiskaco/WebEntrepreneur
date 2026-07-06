@@ -175,11 +175,16 @@ add_action( 'add_meta_boxes', 'empoderadas_add_marca_metabox' );
 
 function empoderadas_marca_metabox_html( $post ) {
     $instagram = get_post_meta( $post->ID, '_marca_instagram', true );
+    $categoria = get_post_meta( $post->ID, '_marca_categoria', true );
     wp_nonce_field( 'empoderadas_marca_nonce', 'empoderadas_marca_nonce_field' );
     ?>
     <p>
         <label for="marca_instagram"><?php _e( 'URL de Instagram:', 'empoderadas-theme' ); ?></label>
         <input type="url" name="marca_instagram" id="marca_instagram" value="<?php echo esc_url( $instagram ); ?>" class="widefat" placeholder="https://instagram.com/usuario">
+    </p>
+    <p>
+        <label for="marca_categoria"><?php _e( 'Categoría / Subtítulo (debajo del nombre):', 'empoderadas-theme' ); ?></label>
+        <input type="text" name="marca_categoria" id="marca_categoria" value="<?php echo esc_attr( $categoria ); ?>" class="widefat" placeholder="Ej. Feria, Joyería, Ropa, etc.">
     </p>
     <?php
 }
@@ -196,6 +201,9 @@ function empoderadas_save_marca_meta( $post_id ) {
     }
     if ( isset( $_POST['marca_instagram'] ) ) {
         update_post_meta( $post_id, '_marca_instagram', esc_url_raw( $_POST['marca_instagram'] ) );
+    }
+    if ( isset( $_POST['marca_categoria'] ) ) {
+        update_post_meta( $post_id, '_marca_categoria', sanitize_text_field( $_POST['marca_categoria'] ) );
     }
 }
 add_action( 'save_post_marca', 'empoderadas_save_marca_meta' );

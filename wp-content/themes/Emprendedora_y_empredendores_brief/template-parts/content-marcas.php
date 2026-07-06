@@ -26,8 +26,16 @@ if ( $marcas_query->have_posts() ) {
     $idx = 0;
     while ( $marcas_query->have_posts() ) {
         $marcas_query->the_post();
-        $cats = get_the_terms( get_the_ID(), 'categoria_marca' );
-        $cat_name = ! empty( $cats ) ? $cats[0]->name : 'Feria';
+        
+        // Obtener el campo personalizado _marca_categoria
+        $cat_name = get_post_meta( get_the_ID(), '_marca_categoria', true );
+        
+        // Si no está definido, usar taxonomía o fallback original
+        if ( empty( $cat_name ) ) {
+            $cats = get_the_terms( get_the_ID(), 'categoria_marca' );
+            $cat_name = ! empty( $cats ) ? $cats[0]->name : 'Feria';
+        }
+        
         $instagram = get_post_meta( get_the_ID(), '_marca_instagram', true );
 
         $brands_data[] = array(
