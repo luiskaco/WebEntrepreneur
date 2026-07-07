@@ -1,5 +1,7 @@
 # 06_TASKS.md — Backlog Activo
 
+## In Progress
+- (Sin tareas activas)
 ## 1. Fase de Configuración Inicial [ ]
 - [ ] Crear estructura básica de tema WordPress (`style.css`, `index.php`, `header.php`, `footer.php`, `functions.php`).
 - [ ] Mover assets estáticos (`animations.css`, `animations.js`, `logo-empoderadas.png`) a la estructura del tema.
@@ -15,6 +17,7 @@
 - [ ] Crear `template-parts/content-banner.php` cargando dinámicamente textos desde el Customizer.
 - [ ] Crear `template-parts/content-agenda.php` con tabs interactivos consultando el CPT `evento_agenda`.
 - [ ] Crear `template-parts/content-auspiciadores.php` consultando el CPT `auspiciador`.
+- [x] Integrar logos reales de auspiciadores (`logo-mason.png` y `logo-wolsvagen.png`) copiados al core del tema y configurados en `content-auspiciadores.php`.
 - [ ] Crear `footer.php` dinámico.
 
 ## 4. Fase de Pruebas y QA [ ]

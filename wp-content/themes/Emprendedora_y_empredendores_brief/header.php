@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="<?php echo esc_url( get_template_directory_uri() . '/favicon.png' ); ?>" type="image/x-icon">
 
+    <!-- SEO Meta Tags Fallback -->
+    <?php if ( ! class_exists( 'WPSEO_Options' ) && ! class_exists( 'RankMath' ) ) : ?>
+    <meta name="description" content="<?php bloginfo( 'description' ); ?>">
+    <?php endif; ?>
+
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

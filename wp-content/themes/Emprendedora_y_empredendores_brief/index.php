@@ -19,6 +19,7 @@ get_header();
     get_template_part( 'template-parts/content', 'banner' );
     get_template_part( 'template-parts/content', 'agenda' );
     get_template_part( 'template-parts/content', 'auspiciadores' );
+    get_template_part( 'template-parts/content', 'cta' );
     ?>
 
 </div>

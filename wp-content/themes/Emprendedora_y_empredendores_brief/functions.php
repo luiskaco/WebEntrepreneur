@@ -16,6 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
    1. SOPORTE DEL TEMA
    ========================================================================== */
 function empoderadas_setup() {
+    // Soporte para título dinámico (SEO)
+    add_theme_support( 'title-tag' );
+
     // Soporte para imágenes destacadas (Post Thumbnails)
     add_theme_support( 'post-thumbnails' );
 
@@ -818,5 +821,239 @@ function empoderadas_inject_json_ld_schema() {
     }
 }
 add_action( 'wp_head', 'empoderadas_inject_json_ld_schema' );
+
+
+/* ==========================================================================
+   8. REGISTROS DE FORMULARIOS CTA Y EXPORTACIÓN A CSV
+   ========================================================================== */
+
+// Registrar CPT para Feriantes y Comunidad
+function empoderadas_registrar_cpts_formularios() {
+    register_post_type( 'registro_feriante', array(
+        'labels' => array(
+            'name'               => 'Registros Feriantes',
+            'singular_name'      => 'Registro Feriante',
+            'menu_name'          => 'Registros Feriantes',
+            'all_items'          => 'Todos los Registros',
+            'view_item'          => 'Ver Registro',
+            'search_items'       => 'Buscar Registros',
+            'not_found'          => 'No se encontraron registros',
+        ),
+        'public'             => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => false,
+        'menu_position'      => 26,
+        'menu_icon'          => 'dashicons-clipboard',
+        'supports'           => array( 'title' )
+    ));
+
+    register_post_type( 'registro_comunidad', array(
+        'labels' => array(
+            'name'               => 'Registros Comunidad',
+            'singular_name'      => 'Registro Comunidad',
+            'menu_name'          => 'Registros Comunidad',
+            'all_items'          => 'Todos los Registros',
+            'view_item'          => 'Ver Registro',
+            'search_items'       => 'Buscar Registros',
+            'not_found'          => 'No se encontraron registros',
+        ),
+        'public'             => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => false,
+        'menu_position'      => 27,
+        'menu_icon'          => 'dashicons-groups',
+        'supports'           => array( 'title' )
+    ));
+}
+add_action( 'init', 'empoderadas_registrar_cpts_formularios' );
+
+// Agregar meta boxes para visualizar los datos en el panel
+function empoderadas_add_cta_meta_boxes() {
+    add_meta_box( 'detalles_registro_feriante', 'Detalles del Feriante', 'empoderadas_render_feriante_meta_box', 'registro_feriante', 'normal', 'high' );
+    add_meta_box( 'detalles_registro_comunidad', 'Detalles de Comunidad', 'empoderadas_render_comunidad_meta_box', 'registro_comunidad', 'normal', 'high' );
+}
+add_action( 'add_meta_boxes', 'empoderadas_add_cta_meta_boxes' );
+
+function empoderadas_render_feriante_meta_box( $post ) {
+    $emp = get_post_meta( $post->ID, '_feriante_emprendimiento', true );
+    $rub = get_post_meta( $post->ID, '_feriante_rubro', true );
+    $ciu = get_post_meta( $post->ID, '_feriante_ciudad', true );
+    $cel = get_post_meta( $post->ID, '_feriante_celular', true );
+    $cor = get_post_meta( $post->ID, '_feriante_correo', true );
+    $ins = get_post_meta( $post->ID, '_feriante_instagram', true );
+    $web = get_post_meta( $post->ID, '_feriante_web', true );
+    ?>
+    <table class="form-table">
+        <tr><th>Emprendimiento:</th><td><strong><?php echo esc_html($emp); ?></strong></td></tr>
+        <tr><th>Rubro:</th><td><?php echo esc_html($rub); ?></td></tr>
+        <tr><th>Ciudad:</th><td><?php echo esc_html($ciu); ?></td></tr>
+        <tr><th>Celular:</th><td><?php echo esc_html($cel); ?></td></tr>
+        <tr><th>Correo:</th><td><?php echo esc_html($cor); ?></td></tr>
+        <tr><th>Instagram/Facebook:</th><td><?php echo esc_html($ins); ?></td></tr>
+        <tr><th>Web:</th><td><?php echo esc_html($web); ?></td></tr>
+    </table>
+    <?php
+}
+
+function empoderadas_render_comunidad_meta_box( $post ) {
+    $cel = get_post_meta( $post->ID, '_comunidad_celular', true );
+    $cor = get_post_meta( $post->ID, '_comunidad_correo', true );
+    $ciu = get_post_meta( $post->ID, '_comunidad_ciudad', true );
+    ?>
+    <table class="form-table">
+        <tr><th>Celular:</th><td><?php echo esc_html($cel); ?></td></tr>
+        <tr><th>Correo:</th><td><?php echo esc_html($cor); ?></td></tr>
+        <tr><th>Ciudad:</th><td><?php echo esc_html($ciu); ?></td></tr>
+    </table>
+    <?php
+}
+
+// Agregar botón de exportación CSV en las listas del Admin
+function empoderadas_agregar_boton_exportar_csv( $which ) {
+    global $typenow;
+    if ( $typenow === 'registro_feriante' || $typenow === 'registro_comunidad' ) {
+        $action = ( $typenow === 'registro_feriante' ) ? 'export_feriantes_csv' : 'export_comunidad_csv';
+        $export_url = add_query_arg( array( 'action' => $action, 'noheader' => 'true' ), admin_url( 'admin-ajax.php' ) );
+        echo '<a href="' . esc_url( $export_url ) . '" class="button button-primary" style="margin-left: 5px; margin-top: 1px;">Descargar CSV</a>';
+    }
+}
+add_action( 'manage_posts_extra_tablenav', 'empoderadas_agregar_boton_exportar_csv' );
+
+// Procesar descarga CSV
+function empoderadas_exportar_feriantes_csv() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Permiso denegado' );
+    }
+
+    header( 'Content-Type: text/csv; charset=utf-8' );
+    header( 'Content-Disposition: attachment; filename=registros-feriantes-' . date('Y-m-d') . '.csv' );
+
+    $output = fopen( 'php://output', 'w' );
+    // Añadir BOM para compatibilidad con Excel en UTF-8
+    fprintf( $output, chr(0xEF).chr(0xBB).chr(0xBF) );
+
+    fputcsv( $output, array( 'Nombre y Apellidos', 'Emprendimiento', 'Rubro', 'Ciudad', 'Celular', 'Correo electrónico', 'Instagram/Facebook', 'Web', 'Fecha' ) );
+
+    $query = new WP_Query( array(
+        'post_type'      => 'registro_feriante',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish'
+    ));
+
+    if ( $query->have_posts() ) {
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            $post_id = get_the_ID();
+            fputcsv( $output, array(
+                get_the_title(),
+                get_post_meta( $post_id, '_feriante_emprendimiento', true ),
+                get_post_meta( $post_id, '_feriante_rubro', true ),
+                get_post_meta( $post_id, '_feriante_ciudad', true ),
+                get_post_meta( $post_id, '_feriante_celular', true ),
+                get_post_meta( $post_id, '_feriante_correo', true ),
+                get_post_meta( $post_id, '_feriante_instagram', true ),
+                get_post_meta( $post_id, '_feriante_web', true ),
+                get_the_date( 'Y-m-d H:i:s' )
+            ));
+        }
+        wp_reset_postdata();
+    }
+    fclose( $output );
+    exit;
+}
+add_action( 'wp_ajax_export_feriantes_csv', 'empoderadas_exportar_feriantes_csv' );
+
+function empoderadas_exportar_comunidad_csv() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Permiso denegado' );
+    }
+
+    header( 'Content-Type: text/csv; charset=utf-8' );
+    header( 'Content-Disposition: attachment; filename=registros-comunidad-' . date('Y-m-d') . '.csv' );
+
+    $output = fopen( 'php://output', 'w' );
+    fprintf( $output, chr(0xEF).chr(0xBB).chr(0xBF) );
+
+    fputcsv( $output, array( 'Nombre y Apellidos', 'Celular', 'Correo electrónico', 'Ciudad', 'Fecha' ) );
+
+    $query = new WP_Query( array(
+        'post_type'      => 'registro_comunidad',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish'
+    ));
+
+    if ( $query->have_posts() ) {
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            $post_id = get_the_ID();
+            fputcsv( $output, array(
+                get_the_title(),
+                get_post_meta( $post_id, '_comunidad_celular', true ),
+                get_post_meta( $post_id, '_comunidad_correo', true ),
+                get_post_meta( $post_id, '_comunidad_ciudad', true ),
+                get_the_date( 'Y-m-d H:i:s' )
+            ));
+        }
+        wp_reset_postdata();
+    }
+    fclose( $output );
+    exit;
+}
+add_action( 'wp_ajax_export_comunidad_csv', 'empoderadas_exportar_comunidad_csv' );
+
+// AJAX: Procesar envío de formulario CTA
+function empoderadas_guardar_registro_cta() {
+    $form_type = isset( $_POST['form_type'] ) ? sanitize_text_field( $_POST['form_type'] ) : '';
+    $nombre    = isset( $_POST['nombre'] ) ? sanitize_text_field( $_POST['nombre'] ) : '';
+
+    if ( empty( $nombre ) ) {
+        wp_send_json_error( array( 'message' => 'El nombre es obligatorio.' ) );
+    }
+
+    if ( $form_type === 'feriante' ) {
+        $post_id = wp_insert_post( array(
+            'post_title'  => $nombre,
+            'post_type'   => 'registro_feriante',
+            'post_status' => 'publish'
+        ));
+
+        if ( $post_id && ! is_wp_error( $post_id ) ) {
+            update_post_meta( $post_id, '_feriante_emprendimiento', sanitize_text_field( $_POST['emprendimiento'] ) );
+            update_post_meta( $post_id, '_feriante_rubro',          sanitize_text_field( $_POST['rubro'] ) );
+            update_post_meta( $post_id, '_feriante_ciudad',         sanitize_text_field( $_POST['ciudad'] ) );
+            update_post_meta( $post_id, '_feriante_celular',        sanitize_text_field( $_POST['celular'] ) );
+            update_post_meta( $post_id, '_feriante_correo',         sanitize_email( $_POST['correo'] ) );
+            update_post_meta( $post_id, '_feriante_instagram',      sanitize_text_field( $_POST['instagram'] ) );
+            update_post_meta( $post_id, '_feriante_web',            sanitize_text_field( $_POST['web'] ) );
+            wp_send_json_success( array( 'message' => '¡Tu registro se ha completado con éxito!' ) );
+        }
+    } elseif ( $form_type === 'comunidad' ) {
+        $post_id = wp_insert_post( array(
+            'post_title'  => $nombre,
+            'post_type'   => 'registro_comunidad',
+            'post_status' => 'publish'
+        ));
+
+        if ( $post_id && ! is_wp_error( $post_id ) ) {
+            update_post_meta( $post_id, '_comunidad_celular', sanitize_text_field( $_POST['celular'] ) );
+            update_post_meta( $post_id, '_comunidad_correo',  sanitize_email( $_POST['correo'] ) );
+            update_post_meta( $post_id, '_comunidad_ciudad',  sanitize_text_field( $_POST['ciudad'] ) );
+            wp_send_json_success( array( 'message' => '¡Te has unido a la comunidad exitosamente!' ) );
+        }
+    }
+
+    wp_send_json_error( array( 'message' => 'Error al procesar el formulario.' ) );
+}
+add_action( 'wp_ajax_guardar_registro_cta', 'empoderadas_guardar_registro_cta' );
+add_action( 'wp_ajax_nopriv_guardar_registro_cta', 'empoderadas_guardar_registro_cta' );
+
 
 

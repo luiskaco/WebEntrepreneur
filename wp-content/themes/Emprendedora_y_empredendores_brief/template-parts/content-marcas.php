@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $marcas_query = new WP_Query( array(
     'post_type'      => 'marca',
     'posts_per_page' => -1,
-    'status'         => 'publish'
+    'post_status'    => 'publish'
 ) );
 
 $brands_data = array();
@@ -44,30 +44,14 @@ if ( $marcas_query->have_posts() ) {
             'category' => $cat_name,
             'instagram' => $instagram ? $instagram : 'https://www.instagram.com',
             'bg' => $colors[$idx % count($colors)],
-            'img' => get_the_post_thumbnail_url( get_the_ID(), 'medium' ) ? get_the_post_thumbnail_url( get_the_ID(), 'medium' ) : empoderadas_get_placeholder_svg( 260, 200, 'Marca' )
+            'img' => get_the_post_thumbnail_url( get_the_ID(), 'medium' ) ? get_the_post_thumbnail_url( get_the_ID(), 'medium' ) : empoderadas_get_placeholder_svg( 260, 200, 'Marca' ),
+            'has_logo' => has_post_thumbnail( get_the_ID() ) ? 1 : 0
         );
         $idx++;
     }
     wp_reset_postdata();
 } else {
-    // Fallbacks originales de la maqueta si no hay marcas registradas en WP
-    $fallbacks = array(
-        array( 'name' => 'ALBA', 'category' => 'Ropa', 'instagram' => 'https://www.instagram.com/alba.peru' ),
-        array( 'name' => 'ALMA A MANO', 'category' => 'Manualidades', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'ALMA BRUJA', 'category' => 'Manualidades', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'AMARETTI', 'category' => 'Joyería', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'AMARRA', 'category' => 'Accesorio celular', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'AME', 'category' => 'Accesorio', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'ÁNIMA', 'category' => 'Joyería', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'AURELIA', 'category' => 'Velas', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'BÁLSAMO', 'category' => 'Aromas', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'BAUMANN', 'category' => 'Café', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'CACAO LIMA', 'category' => 'Repostería', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'DULCE ALMA', 'category' => 'Repostería', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'ELEMENTAL', 'category' => 'Cosmética', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'FLORALIA', 'category' => 'Florería', 'instagram' => 'https://www.instagram.com' ),
-        array( 'name' => 'GEMA', 'category' => 'Joyería', 'instagram' => 'https://www.instagram.com' )
-    );
+    $fallbacks = array();
 
     foreach ( $fallbacks as $k => $f ) {
         $brands_data[] = array(
@@ -76,55 +60,49 @@ if ( $marcas_query->have_posts() ) {
             'category' => $f['category'],
             'instagram' => $f['instagram'],
             'bg' => $colors[$k % count($colors)],
-            'img' => empoderadas_get_placeholder_svg( 260, 200, $f['name'] )
+            'img' => empoderadas_get_placeholder_svg( 260, 200, $f['name'] ),
+            'has_logo' => 0
         );
     }
 }
 ?>
 
-<section id="marcas" data-screen-label="Marcas" style="padding:clamp(56px,8vw,90px) clamp(20px,6vw,56px); background:#FFF9FB;">
-    <div style="max-width:1280px; margin:0 auto;">
-      
-      <!-- Cabecera de la sección (Título + Buscador) -->
-      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; margin-bottom:48px;">
-        <div class="eeReveal">
-          <h2 style="font-family:'Obviously Narrow',sans-serif; font-weight:900; font-size:clamp(36px,5vw,52px); color:#4A3560; margin:0; line-height:1; text-transform:uppercase; letter-spacing:0.5px;">+100 marcas</h2>
-          <div style="font-family:'Atacama',sans-serif; font-size:clamp(22px,3.5vw,28px); color:#8F77B4; margin-top:6px;">lideradas por mujeres</div>
-        </div>
-        
-        <!-- Buscador -->
-        <div class="eeReveal" style="position:relative; width:min(360px, 100%);">
-          <span style="position:absolute; left:18px; top:50%; transform:translateY(-50%); display:flex; align-items:center; pointer-events:none; z-index:2;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8F77B4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          </span>
-          <input type="text" id="ee-brand-search" placeholder="Busca tu marca favorita" style="width:100%; padding:14px 20px 14px 46px; border-radius:100px; border:none; background:#fff; box-shadow:0 8px 24px rgba(143,119,180,0.08); font-family:'Gotham Narrow',sans-serif; font-size:17px; color:#4A3560; box-sizing:border-box; outline:none; transition:box-shadow 0.25s ease;" />
-        </div>
+<script>
+window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
+</script>
+
+<section id="marcas" class="eeSection" style="background:#FFF9FB; padding:90px 0; position:relative; overflow:hidden;">
+  <div class="container" style="position:relative; z-index:3; max-width:1200px; margin:0 auto; padding:0 20px;">
+    
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; margin-bottom:45px;">
+      <div>
+        <h2 style="font-family:'Obviously Narrow',sans-serif; font-weight:900; font-size:clamp(36px,5vw,52px); color:#4A3560; margin:0; line-height:1; text-transform:uppercase; letter-spacing:0.5px;">+100 marcas</h2>
+        <div style="width:60px; height:4px; background:#E18EBB; margin-top:15px; border-radius:2px;"></div>
       </div>
       
-      <!-- Cuadrícula de marcas -->
-      <div style="position:relative;">
-        <div id="ee-brands-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:24px;">
-            <!-- Renderizado dinámico vía JS -->
-        </div>
-        
-        <!-- Paginación -->
-        <div style="display:flex; justify-content:center; align-items:center; gap:16px; margin-top:48px;">
-          <button id="ee-brands-prev" class="eeBtn" style="width:44px; height:44px; border-radius:50%; border:none; background:#fff; box-shadow:0 4px 12px rgba(143,119,180,0.15); color:#8F77B4; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.25s ease;">‹</button>
-          
-          <div id="ee-brands-dots" style="display:flex; align-items:center; gap:8px;">
-              <!-- Dots del paginador -->
-          </div>
-          
-          <button id="ee-brands-next" class="eeBtn" style="width:44px; height:44px; border-radius:50%; border:none; background:#fff; box-shadow:0 4px 12px rgba(143,119,180,0.15); color:#8F77B4; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.25s ease;">›</button>
-        </div>
+      <!-- Buscador UX -->
+      <div style="position:relative; width:100%; max-width:380px;">
+        <input type="text" id="ee-brand-search" placeholder="Buscar por marca o categoría..." style="width:100%; padding:14px 20px 14px 45px; border:2px solid rgba(143,119,180,0.15); border-radius:100px; font-family:'Montserrat',sans-serif; font-size:14px; outline:none; transition:all 0.3s ease; box-shadow:0 4px 12px rgba(143,119,180,0.03);" />
+        <span style="position:absolute; left:18px; top:50%; transform:translateY(-50%); color:#8F77B4; font-size:16px; pointer-events:none;">🔍</span>
       </div>
     </div>
+
+    <!-- Grid de Marcas -->
+    <div id="ee-brands-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:24px; min-height:480px;">
+      <!-- JS cargará las tarjetas aquí -->
+    </div>
+
+    <!-- Paginación -->
+    <div style="display:flex; justify-content:center; align-items:center; gap:20px; margin-top:50px;">
+      <button id="ee-brands-prev" class="eeBtn" style="width:45px; height:45px; border-radius:50%; border:none; background:#8F77B4; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; box-shadow:0 4px 10px rgba(143,119,180,0.2); transition:all 0.25s ease;">&larr;</button>
+      <div id="ee-brands-dots" style="display:flex; gap:8px;"></div>
+      <button id="ee-brands-next" class="eeBtn" style="width:45px; height:45px; border-radius:50%; border:none; background:#8F77B4; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; box-shadow:0 4px 10px rgba(143,119,180,0.2); transition:all 0.25s ease;">&rarr;</button>
+    </div>
+
+  </div>
 </section>
 
 <script>
-    // Pasar marcas de PHP a JavaScript de forma segura
-    window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
-
     document.addEventListener('DOMContentLoaded', function() {
         var allBrands = window.WP_BRANDS_DATA || [];
         var currentPage = 0;
@@ -156,11 +134,16 @@ if ( $marcas_query->have_posts() ) {
             // Generar markup de tarjetas
             var html = '';
             pageBrands.forEach(function(brand) {
+                var imageHtml = `<img src="${brand.img}" alt="${brand.name}" style="width:100%; height:100%; display:block; object-fit:cover; transition:transform 0.4s ease;" />`;
+                
+                // Si tiene logo, se envuelve en link de Instagram. Si no tiene, es solo un div no clickable.
+                var headerHtml = brand.has_logo 
+                    ? `<a href="${brand.instagram}" target="_blank" rel="noopener noreferrer" style="display:block; width:100%; height:200px; overflow:hidden; position:relative;">${imageHtml}</a>`
+                    : `<div style="display:block; width:100%; height:200px; overflow:hidden; position:relative;">${imageHtml}</div>`;
+
                 html += `
                 <div class="eeReveal eeCard eeVisible" style="background:#fff; border-radius:16px; box-shadow:0 8px 24px rgba(143,119,180,0.08); overflow:hidden; display:flex; flex-direction:column;">
-                  <a href="${brand.instagram}" target="_blank" rel="noopener noreferrer" style="display:block; width:100%; height:200px; overflow:hidden; position:relative;">
-                    <img src="${brand.img}" alt="${brand.name}" style="width:100%; height:100%; display:block; object-fit:cover; transition:transform 0.4s ease;" />
-                  </a>
+                  ${headerHtml}
                   <div style="padding:16px 20px 20px; background:${brand.bg}; color:#fff; flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
                     <div style="font-family:'Gotham Narrow',sans-serif; font-weight:900; font-size:17px; text-transform:uppercase; border-bottom:1px solid rgba(255,255,255,0.4); padding-bottom:6px; display:inline-block; letter-spacing:0.5px; align-self:flex-start;">
                       ${brand.name}

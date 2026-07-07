@@ -18,14 +18,17 @@ $query_11 = new WP_Query( array(
     'meta_key'   => '_evento_dia',
     'meta_value' => '11',
     'posts_per_page' => -1,
-    'status'     => 'publish'
+    'post_status' => 'publish',
+    'order'      => 'ASC'
 ) );
 
 $events_11 = array();
 if ( $query_11->have_posts() ) {
     while ( $query_11->have_posts() ) {
         $query_11->the_post();
-        $img_url = get_the_post_thumbnail_url( get_the_ID(), 'large' ) ? get_the_post_thumbnail_url( get_the_ID(), 'large' ) : empoderadas_get_placeholder_svg( 110, 110, 'Feria' );
+        $title_parts = explode(' ', get_the_title());
+        $first_word = !empty($title_parts[0]) ? $title_parts[0] : 'Feria';
+        $img_url = get_the_post_thumbnail_url( get_the_ID(), 'large' ) ? get_the_post_thumbnail_url( get_the_ID(), 'large' ) : empoderadas_get_placeholder_svg( 110, 110, $first_word );
         
         $events_11[] = array(
             'id' => get_the_ID(),
@@ -51,14 +54,17 @@ $query_12 = new WP_Query( array(
     'meta_key'   => '_evento_dia',
     'meta_value' => '12',
     'posts_per_page' => -1,
-    'status'     => 'publish'
+    'post_status' => 'publish',
+    'order'      => 'ASC'
 ) );
 
 $events_12 = array();
 if ( $query_12->have_posts() ) {
     while ( $query_12->have_posts() ) {
         $query_12->the_post();
-        $img_url = get_the_post_thumbnail_url( get_the_ID(), 'large' ) ? get_the_post_thumbnail_url( get_the_ID(), 'large' ) : empoderadas_get_placeholder_svg( 110, 110, 'Feria' );
+        $title_parts = explode(' ', get_the_title());
+        $first_word = !empty($title_parts[0]) ? $title_parts[0] : 'Feria';
+        $img_url = get_the_post_thumbnail_url( get_the_ID(), 'large' ) ? get_the_post_thumbnail_url( get_the_ID(), 'large' ) : empoderadas_get_placeholder_svg( 110, 110, $first_word );
         
         $events_12[] = array(
             'id' => get_the_ID(),
@@ -75,6 +81,7 @@ if ( $query_12->have_posts() ) {
     $events_12 = array(
         array( 'id' => '12-1', 'time' => '03:30 p.m.', 'title' => 'Francisca Aronsson', 'tag' => 'Conversatorio', 'color' => '#6CBCE0', 'img' => empoderadas_get_placeholder_svg( 110, 110, 'Francisca' ) ),
         array( 'id' => '12-2', 'time' => '04:00 p.m.', 'title' => 'Andrea Llosa', 'tag' => 'Conversatorio', 'color' => '#E18EBB', 'img' => empoderadas_get_placeholder_svg( 110, 110, 'Andrea' ) ),
+        array( 'id' => '12-3', 'time' => '05:00 p.m.', 'title' => 'Ileana Tapia', 'tag' => 'Conversatorio', 'color' => '#6CBCE0', 'img' => empoderadas_get_placeholder_svg( 110, 110, 'Ileana' ) ),
     );
 }
 
