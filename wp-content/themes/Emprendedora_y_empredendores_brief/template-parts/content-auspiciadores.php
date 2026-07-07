@@ -66,7 +66,7 @@ if ( $sponsors_query->have_posts() ) {
       <?php if( !empty($sponsors[0]) ): ?>
       <!-- Sponsor Principal -->
       <div class="eeReveal" style="display:flex; justify-content:center; width:100%;">
-         <img src="<?php echo esc_url( $sponsors[0]['logo'] ); ?>" alt="Logo <?php echo esc_attr( $sponsors[0]['name'] ); ?>" class="ee-sponsor-logo" style="max-width:160px; width:100%; height:auto; object-fit:contain; mix-blend-mode:multiply;" />
+         <img src="<?php echo esc_url( $sponsors[0]['logo'] ); ?>" alt="Logo <?php echo esc_attr( $sponsors[0]['name'] ); ?>" class="ee-sponsor-logo" style="max-width:250px; width:100%; height:auto; object-fit:contain; mix-blend-mode:multiply;" />
       </div>
       <?php endif; ?>
 
@@ -78,7 +78,7 @@ if ( $sponsors_query->have_posts() ) {
             // Aplicar multiply a jpeg/jpg para quitar fondo blanco si lo tienen
             $blend = (strpos($sponsors[$i]['logo'], '.jpg') !== false || strpos($sponsors[$i]['logo'], '.jpeg') !== false) ? 'mix-blend-mode:multiply;' : ''; 
           ?>
-          <img src="<?php echo esc_url( $sponsors[$i]['logo'] ); ?>" alt="Logo <?php echo esc_attr( $sponsors[$i]['name'] ); ?>" class="ee-sponsor-logo" style="max-width:140px; height:auto; object-fit:contain; <?php echo $blend; ?>" />
+          <img src="<?php echo esc_url( $sponsors[$i]['logo'] ); ?>" alt="Logo <?php echo esc_attr( $sponsors[$i]['name'] ); ?>" class="ee-sponsor-logo" style="max-width:200px; height:auto; object-fit:contain; <?php echo $blend; ?>" />
         <?php endfor; ?>
       </div>
       <?php endif; ?>
