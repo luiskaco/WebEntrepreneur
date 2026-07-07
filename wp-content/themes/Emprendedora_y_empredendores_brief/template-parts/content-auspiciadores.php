@@ -29,6 +29,7 @@ if ( $sponsors_query->have_posts() ) {
         );
     }
     wp_reset_postdata();
+} else {
     // Fallbacks si no hay datos creados
     $sponsors = array(
         array( 'id' => 1, 'name' => 'VOLKSWAGEN', 'logo' => get_template_directory_uri() . '/assets/images/logo-volkswagen.webp' ),
