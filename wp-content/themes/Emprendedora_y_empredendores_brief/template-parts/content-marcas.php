@@ -90,8 +90,38 @@ window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
       </div>
     </div>
 
+    <style>
+    #ee-brands-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 24px;
+        min-height: 480px;
+        width: 100%;
+    }
+    @media (min-width: 480px) {
+        #ee-brands-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (min-width: 768px) {
+        #ee-brands-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    @media (min-width: 992px) {
+        #ee-brands-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+    @media (min-width: 1200px) {
+        #ee-brands-grid {
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+    </style>
+
     <!-- Grid de Marcas -->
-    <div id="ee-brands-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:24px; min-height:480px;">
+    <div id="ee-brands-grid">
       <!-- JS cargará las tarjetas aquí -->
     </div>
 
@@ -109,7 +139,7 @@ window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
     document.addEventListener('DOMContentLoaded', function() {
         var allBrands = window.WP_BRANDS_DATA || [];
         var currentPage = 0;
-        var itemsPerPage = 10;
+        var itemsPerPage = 15;
         var filteredBrands = allBrands;
 
         var searchInput = document.getElementById('ee-brand-search');
@@ -137,7 +167,7 @@ window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
             // Generar markup de tarjetas
             var html = '';
             pageBrands.forEach(function(brand) {
-                var imageHtml = `<img src="${brand.img}" alt="${brand.name}" style="width:100%; height:100%; display:block; object-fit:cover; transition:transform 0.4s ease;" />`;
+                var imageHtml = `<div style="width:100%; height:100%; background-image:url('${brand.img}'); background-size:cover; background-position:center; background-repeat:no-repeat; transition:transform 0.4s ease;"></div>`;
                 
                 // Si tiene red social, se envuelve en link de Instagram. Si no tiene, es solo un div no clickable.
                 var headerHtml = brand.has_instagram 
@@ -145,7 +175,7 @@ window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
                     : `<div style="display:block; width:100%; height:200px; overflow:hidden; position:relative;">${imageHtml}</div>`;
 
                 html += `
-                <div class="eeReveal eeCard eeVisible" style="background:#fff; border-radius:16px; box-shadow:0 8px 24px rgba(143,119,180,0.08); overflow:hidden; display:flex; flex-direction:column;">
+                <div class="eeReveal eeCard eeVisible" style="background:#fff; border-radius:16px; box-shadow:0 8px 24px rgba(143,119,180,0.08); overflow:hidden; display:flex; flex-direction:column; max-width:280px; width:100%; margin:0 auto;">
                   ${headerHtml}
                   <div style="padding:16px 20px 20px; background:${brand.bg}; color:#fff; flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
                     <div style="font-family:'Gotham Narrow',sans-serif; font-weight:900; font-size:17px; text-transform:uppercase; border-bottom:1px solid rgba(255,255,255,0.4); padding-bottom:6px; display:inline-block; letter-spacing:0.5px; align-self:flex-start;">
@@ -174,6 +204,7 @@ window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
                 dot.addEventListener('click', function() {
                     currentPage = parseInt(dot.getAttribute('data-page'));
                     render();
+                    scrollToSection();
                 });
             });
 
@@ -182,6 +213,20 @@ window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
             prevBtn.style.opacity = currentPage === 0 ? '0.4' : '1';
             nextBtn.disabled = currentPage >= totalPages - 1;
             nextBtn.style.opacity = currentPage >= totalPages - 1 ? '0.4' : '1';
+        }
+
+        function scrollToSection() {
+            var section = document.getElementById('marcas');
+            if (!section) return;
+            var offset = 100;
+            var bodyRect = document.body.getBoundingClientRect().top;
+            var elementRect = section.getBoundingClientRect().top;
+            var elementPosition = elementRect - bodyRect;
+            var offsetPosition = elementPosition - offset;
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
         }
 
         if (searchInput && grid && prevBtn && nextBtn && dotsContainer) {
@@ -194,6 +239,7 @@ window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
                 if (currentPage > 0) {
                     currentPage--;
                     render();
+                    scrollToSection();
                 }
             });
 
@@ -202,6 +248,7 @@ window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
                 if (currentPage < totalPages - 1) {
                     currentPage++;
                     render();
+                    scrollToSection();
                 }
             });
 

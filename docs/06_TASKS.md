@@ -2,6 +2,7 @@
 
 ## In Progress
 - (Sin tareas activas)
+- [x] fix: marcas image stretching — cause: img tag styling overridden or browser object-fit bug; fix by using div background-image cover
 ## 1. Fase de Configuración Inicial [ ]
 - [ ] Crear estructura básica de tema WordPress (`style.css`, `index.php`, `header.php`, `footer.php`, `functions.php`).
 - [ ] Mover assets estáticos (`animations.css`, `animations.js`, `logo-empoderadas.png`) a la estructura del tema.
@@ -18,6 +19,7 @@
 - [ ] Crear `template-parts/content-agenda.php` con tabs interactivos consultando el CPT `evento_agenda`.
 - [ ] Crear `template-parts/content-auspiciadores.php` consultando el CPT `auspiciador`.
 - [x] Integrar logos reales de auspiciadores (`logo-mason.png` y `logo-wolsvagen.png`) copiados al core del tema y configurados en `content-auspiciadores.php`.
+- [x] Agregar la sección de Mapa (`template-parts/content-mapa.php`) después de la Agenda con la imagen `mapa.webp`.
 - [ ] Crear `footer.php` dinámico.
 
 ## 4. Fase de Pruebas y QA [ ]

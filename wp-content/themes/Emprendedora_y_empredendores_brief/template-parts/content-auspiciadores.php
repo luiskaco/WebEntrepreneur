@@ -45,13 +45,17 @@ if ( $sponsors_query->have_posts() ) {
     100% { transform: translateY(0px); }
 }
 .ee-sponsor-logo {
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: grayscale(100%);
+    opacity: 0.8;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease, opacity 0.3s ease;
     animation: floatSponsor 4s ease-in-out infinite;
-    will-change: transform;
+    will-change: transform, filter, opacity;
 }
 .ee-sponsor-logo:hover {
     animation-play-state: paused;
     transform: scale(1.1) translateY(-4px);
+    filter: grayscale(0%);
+    opacity: 1;
 }
 </style>
 

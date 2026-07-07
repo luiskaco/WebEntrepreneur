@@ -170,6 +170,70 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
   </footer>
 
+  <!-- Botón Llevar Arriba -->
+  <button id="ee-back-to-top" class="ee-back-to-top-btn" aria-label="Volver arriba">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <style>
+  .ee-back-to-top-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #8F77B4;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(74, 53, 96, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 9999;
+  }
+  .ee-back-to-top-btn:hover {
+      background-color: #D88BB6;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 6px 16px rgba(216, 139, 182, 0.4);
+  }
+  .ee-back-to-top-btn.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+  }
+  </style>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const backToTopBtn = document.getElementById('ee-back-to-top');
+      
+      if (!backToTopBtn) return;
+
+      window.addEventListener('scroll', function() {
+          if (window.scrollY > 300) {
+              backToTopBtn.classList.add('is-visible');
+          } else {
+              backToTopBtn.classList.remove('is-visible');
+          }
+      });
+
+      backToTopBtn.addEventListener('click', function() {
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+      });
+  });
+  </script>
+
 <?php wp_footer(); ?>
 </body>
 </html>
