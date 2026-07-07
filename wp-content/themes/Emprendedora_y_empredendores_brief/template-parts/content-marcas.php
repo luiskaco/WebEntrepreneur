@@ -37,6 +37,7 @@ if ( $marcas_query->have_posts() ) {
         }
         
         $instagram = get_post_meta( get_the_ID(), '_marca_instagram', true );
+        $has_instagram = ( $instagram && trim( $instagram ) !== 'https://www.instagram.com' && trim( $instagram ) !== 'https://www.instagram.com/' ) ? 1 : 0;
 
         $brands_data[] = array(
             'id' => get_the_ID(),
@@ -45,7 +46,7 @@ if ( $marcas_query->have_posts() ) {
             'instagram' => $instagram ? $instagram : 'https://www.instagram.com',
             'bg' => $colors[$idx % count($colors)],
             'img' => get_the_post_thumbnail_url( get_the_ID(), 'medium' ) ? get_the_post_thumbnail_url( get_the_ID(), 'medium' ) : empoderadas_get_placeholder_svg( 260, 200, 'Marca' ),
-            'has_logo' => has_post_thumbnail( get_the_ID() ) ? 1 : 0
+            'has_instagram' => $has_instagram
         );
         $idx++;
     }
@@ -54,6 +55,8 @@ if ( $marcas_query->have_posts() ) {
     $fallbacks = array();
 
     foreach ( $fallbacks as $k => $f ) {
+        $has_instagram = ( $f['instagram'] && trim( $f['instagram'] ) !== 'https://www.instagram.com' && trim( $f['instagram'] ) !== 'https://www.instagram.com/' ) ? 1 : 0;
+        
         $brands_data[] = array(
             'id' => $k + 1,
             'name' => $f['name'],
@@ -61,7 +64,7 @@ if ( $marcas_query->have_posts() ) {
             'instagram' => $f['instagram'],
             'bg' => $colors[$k % count($colors)],
             'img' => empoderadas_get_placeholder_svg( 260, 200, $f['name'] ),
-            'has_logo' => 0
+            'has_instagram' => $has_instagram
         );
     }
 }
@@ -136,8 +139,8 @@ window.WP_BRANDS_DATA = <?php echo json_encode( $brands_data ); ?>;
             pageBrands.forEach(function(brand) {
                 var imageHtml = `<img src="${brand.img}" alt="${brand.name}" style="width:100%; height:100%; display:block; object-fit:cover; transition:transform 0.4s ease;" />`;
                 
-                // Si tiene logo, se envuelve en link de Instagram. Si no tiene, es solo un div no clickable.
-                var headerHtml = brand.has_logo 
+                // Si tiene red social, se envuelve en link de Instagram. Si no tiene, es solo un div no clickable.
+                var headerHtml = brand.has_instagram 
                     ? `<a href="${brand.instagram}" target="_blank" rel="noopener noreferrer" style="display:block; width:100%; height:200px; overflow:hidden; position:relative;">${imageHtml}</a>`
                     : `<div style="display:block; width:100%; height:200px; overflow:hidden; position:relative;">${imageHtml}</div>`;
 
