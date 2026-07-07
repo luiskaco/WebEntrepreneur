@@ -29,12 +29,11 @@ if ( $sponsors_query->have_posts() ) {
         );
     }
     wp_reset_postdata();
-} else {
     // Fallbacks si no hay datos creados
     $sponsors = array(
-        array( 'id' => 1, 'name' => 'VOLKSWAGEN', 'logo' => get_stylesheet_directory_uri() . '/logo-wolsvagen.png' ),
-        array( 'id' => 2, 'name' => 'MASON NATURAL', 'logo' => get_stylesheet_directory_uri() . '/logo-mason.png' ),
-        array( 'id' => 3, 'name' => 'LOA', 'logo' => get_stylesheet_directory_uri() . '/logo-loa.jpeg' )
+        array( 'id' => 1, 'name' => 'VOLKSWAGEN', 'logo' => get_template_directory_uri() . '/assets/images/logo-volkswagen.webp' ),
+        array( 'id' => 2, 'name' => 'MASON NATURAL', 'logo' => get_template_directory_uri() . '/assets/images/logo-mason.webp' ),
+        array( 'id' => 3, 'name' => 'LOA', 'logo' => get_template_directory_uri() . '/assets/images/logo-loa.webp' )
     );
 }
 ?>
