@@ -21,7 +21,7 @@ get_header();
     get_template_part( 'template-parts/content', 'mapa' );
     get_template_part( 'template-parts/content', 'auspiciadores' );
     get_template_part( 'template-parts/content', 'cta' );
-    get_template_part( 'template-parts/content', 'ediciones' );
+    // get_template_part( 'template-parts/content', 'ediciones' ); // Sección oculta temporalmente
     ?>
 
 </div>

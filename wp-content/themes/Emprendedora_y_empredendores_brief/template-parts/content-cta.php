@@ -21,10 +21,10 @@
         <!-- Text Row -->
         <div class="cta-text-row">
             <div class="cta-text-col">
-                Déjanos tus datos y sé de las primeras en conocer convocatorias, beneficios y oportunidades para tu marca.
+                Sé de las primeras en conocer las oportunidades para tu marca.
             </div>
             <div class="cta-text-col">
-                Sé parte de la comunidad de nuestra comunidad y recibe información sobre actividades especiales.
+                Sé parte de nuestra comunidad y recibe información sobre actividades especiales.
             </div>
         </div>
     </div>
@@ -187,7 +187,7 @@
     padding: 1.5rem;
     color: #fff !important;
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
@@ -195,7 +195,7 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    font-family: 'Obviously Narrow', sans-serif;
+    font-family: 'Oswald', sans-serif;
 }
 
 .cta-pill-purple {
@@ -231,12 +231,12 @@
 .cta-text-col {
     flex: 1;
     color: #555;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 1.5;
-    font-weight: 400;
+    font-weight: 500;
     padding: 0 1rem;
     text-align: center;
-    font-family: 'Obviously Narrow', sans-serif;
+    font-family: 'Oswald', sans-serif;
 }
 
 /* Animations for birds */

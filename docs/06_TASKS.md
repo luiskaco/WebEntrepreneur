@@ -1,8 +1,13 @@
 # 06_TASKS.md — Backlog Activo
 
 ## In Progress
-- (Sin tareas activas)
+- [x] fix: imagen incorrecta en slider hero — causa: se sobrescribió accidentalmente la imagen del hero en lugar de la agenda.
 - [x] fix: marcas card stretching — cause: grid defaults to align-items: stretch, causing card to fill 480px min-height when only one row exists
+- [x] update: textos corregidos en banner, CTA y slider de ediciones.
+- [x] fix: tipografía de letras con tilde (é, ó) cambiada a Oswald en CTA.
+- [x] update: ocultada la sección "Nuestras ediciones" en index.php.
+- [x] update: imagen del "Desfile de modas" actualizada en agenda y slide eliminado del hero.
+- [x] fix: imagen de Johanna San Miguel no se actualizaba en la agenda — causa: en la base de datos de WordPress el archivo enlazado era `9.webp` y `10.webp`, no `johanna-san-miguel.webp`.
 ## 1. Fase de Configuración Inicial [ ]
 - [ ] Crear estructura básica de tema WordPress (`style.css`, `index.php`, `header.php`, `footer.php`, `functions.php`).
 - [ ] Mover assets estáticos (`animations.css`, `animations.js`, `logo-empoderadas.png`) a la estructura del tema.

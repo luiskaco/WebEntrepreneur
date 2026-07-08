@@ -61,7 +61,7 @@ if ( $sponsors_query->have_posts() ) {
 
 <section id="auspiciadores" data-screen-label="Auspiciadores" style="padding:clamp(56px,8vw,80px) clamp(20px,6vw,56px); background:#A99FC5; color:#fff;">
     <div class="eeReveal" style="text-align:center; margin-bottom:48px;">
-      <p style="font-family:'Times New Roman', Times, serif; color:#fff; font-size:22px; margin:0 0 8px; opacity:0.95;">Gracias a quienes hacen posible la feria</p>
+      <p style="font-family:'Times New Roman', Times, serif; color:#fff; font-size:22px; margin:0 0 8px; opacity:0.95;">Gracias a quienes lo hacen posible</p>
       <h2 style="font-family:'Obviously Narrow',sans-serif; font-weight:900; font-size:clamp(40px,6vw,64px); color:#fff; margin:0; letter-spacing:1px; text-transform:uppercase;">AUSPICIADORES</h2>
     </div>
     

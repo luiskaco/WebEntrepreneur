@@ -20,21 +20,22 @@ $stat2_txt = get_theme_mod( 'hero_stat_2_txt', 'Asistentes' );
 // Datos de slides estáticos del Hero usando las 15 imágenes reales copiadas
 $uploads_hero_url = get_template_directory_uri() . '/uploads/hero/';
 $slides = array(
-    array( 'id' => 1, 'name' => 'Sandra Crown', 'subtitle' => 'Founder Sophie Crown', 'img' => $uploads_hero_url . 'sandra.webp' ),
-    array( 'id' => 2, 'name' => 'Cynthia Maquilladora', 'subtitle' => 'La maquilladora', 'img' => $uploads_hero_url . 'cynthia.webp' ),
-    array( 'id' => 3, 'name' => 'Leslie Stewart', 'subtitle' => 'Invitada Especial', 'img' => $uploads_hero_url . 'leslie.webp' ),
-    array( 'id' => 4, 'name' => 'Mavila Huertas', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'mavila.webp' ),
-    array( 'id' => 5, 'name' => 'Andrea Llosa', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'andrea.webp' ),
-    array( 'id' => 6, 'name' => 'Astrid Gutsche', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'astrid.webp' ),
-    array( 'id' => 7, 'name' => 'Diana Crousillat', 'subtitle' => 'Fundación Oli', 'img' => $uploads_hero_url . 'diana.webp' ),
-    // array( 'id' => 8, 'name' => 'Edith', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'edith.webp' ),
-    array( 'id' => 9, 'name' => 'Francisca Aronsson', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'francisca.webp' ),
-    array( 'id' => 10, 'name' => 'Mariana Vertiz', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'mariana.webp' ),
-    array( 'id' => 11, 'name' => 'Miranda Salaverry', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'miranda.webp' ),
-    array( 'id' => 12, 'name' => 'Moda Desfile', 'subtitle' => 'Desfile de modas', 'img' => $uploads_hero_url . 'moda.webp' ),
-    array( 'id' => 13, 'name' => 'Moni Villar', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'moni.webp' ),
-    array( 'id' => 14, 'name' => 'Nea Paz', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'nea.webp' ),
-    array( 'id' => 15, 'name' => 'Wendy Wunder', 'subtitle' => 'Conversatorio Diferido', 'img' => $uploads_hero_url . 'wendy.webp' ),
+    array( 'id' => 1, 'name' => 'Andrea Llosa', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'andrea_llosa.webp' ),
+    array( 'id' => 2, 'name' => 'Astrid Gutsche', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'astrid_gutsche.webp' ),
+    array( 'id' => 3, 'name' => 'Cynthia Calderon', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'cynthia_calderon.webp' ),
+    array( 'id' => 4, 'name' => 'Diana Crousillat', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'diana_crousillat.webp' ),
+    array( 'id' => 5, 'name' => 'Francisca Aronsson', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'francisca_aronsson.webp' ),
+    array( 'id' => 6, 'name' => 'Ileana Tapia', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'ileana_tapia.webp' ),
+    array( 'id' => 7, 'name' => 'Johanna San Miguel', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'johanna_san_miguel.webp' ),
+    array( 'id' => 8, 'name' => 'Leslie Stewart', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'leslie_stewart.webp' ),
+    array( 'id' => 9, 'name' => 'Mariana Vértiz', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'mariana_vertiz.webp' ),
+    array( 'id' => 10, 'name' => 'Marina Mora', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'marina_mora.webp' ),
+    array( 'id' => 11, 'name' => 'Mavila Huertas', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'mavila_huertas.webp' ),
+    array( 'id' => 12, 'name' => 'Miranda Salaverry', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'miranda_salaverry.webp' ),
+    array( 'id' => 13, 'name' => 'Moni Villar', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'moni_villar.webp' ),
+    array( 'id' => 14, 'name' => 'Nea Paz', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'nea_paz.webp' ),
+    array( 'id' => 15, 'name' => 'Sandra Sevil', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'sandra_sevil.webp' ),
+    array( 'id' => 16, 'name' => 'Wendy Wunder', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'wendy_wunder.webp' )
 );
 ?>
 
@@ -80,13 +81,13 @@ $slides = array(
           ?>
             <div class="ee-hero-slide" data-slide-index="<?php echo $index; ?>" style="position:absolute; inset:0; display:<?php echo $index === 0 ? 'block' : 'none'; ?>;">
               <img src="<?php echo esc_url( $slide['img'] ); ?>" alt="<?php echo esc_attr( $slide['name'] ); ?>" style="width:100%; height:100%; display:block; object-fit:cover;" />
-              <div style="display:none; position:absolute; inset:0; background:linear-gradient(to top, rgba(74,53,80,0.85) 0%, rgba(74,53,80,0.4) 30%, transparent 60%); pointer-events:none;"></div>
+              <div style="display:block; position:absolute; inset:0; background:linear-gradient(to top, rgba(74,53,80,0.5) 0%, rgba(74,53,80,0.15) 25%, transparent 40%); pointer-events:none;"></div>
               
-              <div style="display:none; position:absolute; bottom:24px; left:0; width:100%; text-align:center; padding:0 20px; box-sizing:border-box; z-index:2;">
+              <div style="display:block; position:absolute; bottom:24px; left:0; width:100%; text-align:center; padding:0 20px; box-sizing:border-box; z-index:2;">
                 <div style="font-family:'Anton',sans-serif; font-size:clamp(30px, 7vw, 42px); line-height:0.95; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,0.2); text-transform:uppercase; letter-spacing:0.5px;">
                   <?php echo esc_html( $first_name ); ?><br><?php echo esc_html( $last_name ); ?>
                 </div>
-                <div style="font-family:'Obviously Narrow',sans-serif; font-weight:500; font-size:12px; color:rgba(255,255,255,0.9); letter-spacing:2px; margin-top:8px; text-transform:uppercase;">
+                <div style="display:none; font-family:'Obviously Narrow',sans-serif; font-weight:500; font-size:12px; color:rgba(255,255,255,0.9); letter-spacing:2px; margin-top:8px; text-transform:uppercase;">
                   <?php echo esc_html( $slide['subtitle'] ); ?>
                 </div>
               </div>

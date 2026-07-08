@@ -19,7 +19,7 @@ $img_url = get_template_directory_uri() . '/assets/images/section_galeria.webp';
         
         <div style="padding: 0 20px;">
             <h2 style="font-family: 'Obviously Narrow', sans-serif; font-size: clamp(32px, 6vw, 56px); font-weight: 900; color: #fff; margin: 0 0 16px 0; text-transform: none; letter-spacing: 0.5px;">
-                Todas nuestras ediciones
+                Nuestras ediciones
             </h2>
         
         <!-- Separador decorativo blanco -->

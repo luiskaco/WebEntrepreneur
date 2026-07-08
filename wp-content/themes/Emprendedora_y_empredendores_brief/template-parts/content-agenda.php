@@ -140,7 +140,7 @@ $inactive_bg = '#C5B8D8';
                 <div class="eeAgendaDot" style="position:absolute; left:-10px; top:50%; transform:translateY(-50%); width:20px; height:20px; border-radius:50%; background:<?php echo esc_attr( $item['color'] ); ?>; z-index:3; transform-origin:center;"></div>
                 <div class="eeAgendaDot" style="position:absolute; right:-10px; top:50%; transform:translateY(-50%); width:20px; height:20px; border-radius:50%; background:<?php echo esc_attr( $item['color'] ); ?>; z-index:3; transform-origin:center;"></div>
                 <div style="font-family:'Obviously Narrow',sans-serif; font-size:14px; color:#8F77B4; font-weight:600; opacity:0.95; padding-left:8px;"><?php echo esc_html( $item['time'] ); ?></div>
-                <div style="font-family:'Obviously Narrow',sans-serif; font-size:18px; font-weight:700; color:#000; margin-top:4px; line-height:1.2; letter-spacing:0.3px; padding-left:8px;"><?php echo esc_html( $item['title'] ); ?></div>
+                <div style="font-family:'Oswald',sans-serif; font-size:18px; font-weight:700; color:#000; margin-top:4px; line-height:1.2; letter-spacing:0.3px; padding-left:8px;"><?php echo esc_html( $item['title'] ); ?></div>
                 <div style="font-family:'Gotham Narrow',sans-serif; font-style:italic; font-size:16px; color:#8F77B4; margin-top:6px; font-weight:normal; padding-left:8px;"><?php echo esc_html( $item['tag'] ); ?></div>
               </div>
             </div>
@@ -161,7 +161,7 @@ $inactive_bg = '#C5B8D8';
                 <div class="eeAgendaDot" style="position:absolute; left:-10px; top:50%; transform:translateY(-50%); width:20px; height:20px; border-radius:50%; background:<?php echo esc_attr( $item['color'] ); ?>; z-index:3; transform-origin:center;"></div>
                 <div class="eeAgendaDot" style="position:absolute; right:-10px; top:50%; transform:translateY(-50%); width:20px; height:20px; border-radius:50%; background:<?php echo esc_attr( $item['color'] ); ?>; z-index:3; transform-origin:center;"></div>
                 <div style="font-family:'Obviously Narrow',sans-serif; font-size:14px; color:#8F77B4; font-weight:600; opacity:0.95; padding-left:8px;"><?php echo esc_html( $item['time'] ); ?></div>
-                <div style="font-family:'Obviously Narrow',sans-serif; font-size:18px; font-weight:700; color:#000; margin-top:4px; line-height:1.2; letter-spacing:0.3px; padding-left:8px;"><?php echo esc_html( $item['title'] ); ?></div>
+                <div style="font-family:'Oswald',sans-serif; font-size:18px; font-weight:700; color:#000; margin-top:4px; line-height:1.2; letter-spacing:0.3px; padding-left:8px;"><?php echo esc_html( $item['title'] ); ?></div>
                 <div style="font-family:'Gotham Narrow',sans-serif; font-style:italic; font-size:16px; color:#8F77B4; margin-top:6px; font-weight:normal; padding-left:8px;"><?php echo esc_html( $item['tag'] ); ?></div>
               </div>
             </div>
