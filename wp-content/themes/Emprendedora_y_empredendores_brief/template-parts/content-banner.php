@@ -24,7 +24,7 @@ $days = isset($dates_parts[0]) ? $dates_parts[0] : '11-12';
 $month = isset($dates_parts[1]) ? $dates_parts[1] : 'Julio';
 ?>
 
-<section id="ingreso-libre" data-screen-label="Ingreso Libre" style="background:linear-gradient(135deg, #CFACDF 0%, #9B79B9 100%); position:relative; overflow:hidden; color:#fff; padding:60px 20px;">
+<section id="ingreso-libre" data-screen-label="Ingreso Libre" style="background-image: url('<?php echo esc_url( get_template_directory_uri() . '/assets/images/bg-libre.webp' ); ?>'); background-size: cover; background-position: center; background-repeat: no-repeat; position:relative; overflow:hidden; color:#fff; padding:60px 20px;">
     <!-- Imagen de la izquierda (Pájaro 1) -->
     <div class="eeRevealBird" style="position:absolute; left:clamp(24px, 5vw, 90px); bottom:0; top:0; width:clamp(80px, 18vw, 220px); pointer-events:none; z-index:1;">
       <img src="<?php echo esc_url( get_template_directory_uri() . '/uploads/pajaro-1.webp' ); ?>" alt="Flores e ilustración izquierda" style="width:100%; height:100%; object-fit:contain; display:block; object-position: left bottom;" />

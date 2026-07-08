@@ -6,12 +6,14 @@
  * @subpackage Empoderadas_Theme
  * @since 1.0.0
  */
-
 // Obtener datos globales del Customizer
 $hero_title = get_theme_mod( 'hero_title', 'Descubre las marcas que están transformando Lima' );
 $hero_description = get_theme_mod( 'hero_description', 'Más que una feria, el evento que reúne lo mejor del talento femenino peruano' );
 $stat1_num = get_theme_mod( 'hero_stat_1_num', '+100' );
-$stat1_txt = get_theme_mod( 'hero_stat_1_txt', 'Marcas y experiencias' );
+$stat1_txt = get_theme_mod( 'hero_stat_1_txt', 'Marcas' );
+if ( $stat1_txt === 'Marcas y experiencias' ) {
+    $stat1_txt = 'Marcas';
+}
 $stat2_num = get_theme_mod( 'hero_stat_2_num', '+8MIL' );
 $stat2_txt = get_theme_mod( 'hero_stat_2_txt', 'Asistentes' );
 
@@ -25,7 +27,7 @@ $slides = array(
     array( 'id' => 5, 'name' => 'Andrea Llosa', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'andrea.webp' ),
     array( 'id' => 6, 'name' => 'Astrid Gutsche', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'astrid.webp' ),
     array( 'id' => 7, 'name' => 'Diana Crousillat', 'subtitle' => 'Fundación Oli', 'img' => $uploads_hero_url . 'diana.webp' ),
-    array( 'id' => 8, 'name' => 'Edith Expositora', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'edith.webp' ),
+    // array( 'id' => 8, 'name' => 'Edith', 'subtitle' => 'Expositora', 'img' => $uploads_hero_url . 'edith.webp' ),
     array( 'id' => 9, 'name' => 'Francisca Aronsson', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'francisca.webp' ),
     array( 'id' => 10, 'name' => 'Mariana Vertiz', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'mariana.webp' ),
     array( 'id' => 11, 'name' => 'Miranda Salaverry', 'subtitle' => 'Conversatorio', 'img' => $uploads_hero_url . 'miranda.webp' ),
@@ -36,7 +38,7 @@ $slides = array(
 );
 ?>
 
-<section id="hero" style="background: linear-gradient(135deg, #E18EBB 0%, #8F77B4 100%); position:relative; overflow:hidden;">
+<section id="hero" style="background-image: url('<?php echo esc_url( get_template_directory_uri() . '/assets/images/bg-hero.webp' ); ?>'); background-size: cover; background-position: center; background-repeat: no-repeat; position:relative; overflow:hidden;">
   <div style="padding:clamp(110px,11vw,140px) clamp(20px,6vw,56px) clamp(90px,12vw,140px); max-width:1280px; margin:0 auto; display:flex; align-items:center; gap:clamp(28px,5vw,60px); flex-wrap:wrap;">
     
     <div class="eeHeroFade" style="flex:1.1; min-width:300px; position:relative; z-index:2;">
@@ -51,23 +53,23 @@ $slides = array(
       
       <div style="display:flex; gap:28px; flex-wrap:wrap; font-family:'Obviously Narrow',sans-serif;">
         <div>
-          <div style="font-weight:900; font-size:clamp(44px,6vw,56px); color:#fff; line-height:1;">
+          <div style="font-weight:900; font-size:clamp(64px,9vw,90px); color:#fff; line-height:1;">
             +<span class="ee-counter" data-target="100">0</span>
           </div>
-          <div style="background:#6CBCE0; color:#fff; font-weight:600; font-size:13px; text-transform:uppercase; padding:4px 10px; border-radius:2px; display:inline-block; margin-top:4px; letter-spacing:0.5px;"><?php echo esc_html( $stat1_txt ); ?></div>
+          <div style="background:#6CBCE0; color:#fff; font-weight:600; font-size:15px; text-transform:uppercase; padding:6px 12px; border-radius:2px; display:inline-block; margin-top:12px; letter-spacing:0.5px;"><?php echo esc_html( $stat1_txt ); ?></div>
         </div>
         <div>
-          <div style="font-weight:900; font-size:clamp(44px,6vw,56px); color:#fff; line-height:1;">
-            +<span class="ee-counter" data-target="8">0</span><span style="font-size:clamp(24px,4vw,34px);">MIL</span>
+          <div style="font-weight:900; font-size:clamp(64px,9vw,90px); color:#fff; line-height:1;">
+            +<span class="ee-counter" data-target="8">0</span><span style="font-size:clamp(40px,6vw,56px);">MIL</span>
           </div>
-          <div style="background:#6CBCE0; color:#fff; font-weight:600; font-size:13px; text-transform:uppercase; padding:4px 10px; border-radius:2px; display:inline-block; margin-top:4px; letter-spacing:0.5px;"><?php echo esc_html( $stat2_txt ); ?></div>
+          <div style="background:#6CBCE0; color:#fff; font-weight:600; font-size:15px; text-transform:uppercase; padding:6px 12px; border-radius:2px; display:inline-block; margin-top:12px; letter-spacing:0.5px;"><?php echo esc_html( $stat2_txt ); ?></div>
         </div>
       </div>
     </div>
 
     <!-- Carrusel Polaroid Interactiva -->
     <div class="eeHeroFadeDelay" style="flex:1; min-width:280px; display:flex; justify-content:center; position:relative; z-index:2; max-width:100%;">
-      <div class="eeHeroImgWrap" style="position:relative; padding:18px; background:#fff; border-radius:24px; box-shadow:0 30px 60px rgba(74,53,80,0.35); transform:rotate(-5deg); width:min(380px,80vw); overflow:visible;">
+      <div class="eeHeroImgWrap" style="position:relative; padding:18px; background:#fff; border-radius:24px; box-shadow:0 30px 60px rgba(74,53,80,0.45), 0 12px 36px rgba(74,53,80,0.25); transform:rotate(-5deg); width:min(380px,80vw); overflow:visible;">
         <div style="position:relative; width:100%; aspect-ratio:380/460; border-radius:16px; overflow:hidden; background:linear-gradient(135deg, #CFACDF 0%, #9B79B9 100%);">
           
           <?php foreach ( $slides as $index => $slide ) : 
@@ -77,10 +79,10 @@ $slides = array(
               $last_name = implode(' ', $name_parts);
           ?>
             <div class="ee-hero-slide" data-slide-index="<?php echo $index; ?>" style="position:absolute; inset:0; display:<?php echo $index === 0 ? 'block' : 'none'; ?>;">
-              <img src="<?php echo esc_url( $slide['img'] ); ?>" alt="<?php echo esc_attr( $slide['name'] ); ?>" style="width:100%; height:100%; display:block; object-fit:cover; mix-blend-mode:multiply; opacity:0.9;" />
-              <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(74,53,80,0.85) 0%, rgba(74,53,80,0.4) 30%, transparent 60%); pointer-events:none;"></div>
+              <img src="<?php echo esc_url( $slide['img'] ); ?>" alt="<?php echo esc_attr( $slide['name'] ); ?>" style="width:100%; height:100%; display:block; object-fit:cover;" />
+              <div style="display:none; position:absolute; inset:0; background:linear-gradient(to top, rgba(74,53,80,0.85) 0%, rgba(74,53,80,0.4) 30%, transparent 60%); pointer-events:none;"></div>
               
-              <div style="position:absolute; bottom:24px; left:0; width:100%; text-align:center; padding:0 20px; box-sizing:border-box; z-index:2;">
+              <div style="display:none; position:absolute; bottom:24px; left:0; width:100%; text-align:center; padding:0 20px; box-sizing:border-box; z-index:2;">
                 <div style="font-family:'Anton',sans-serif; font-size:clamp(30px, 7vw, 42px); line-height:0.95; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,0.2); text-transform:uppercase; letter-spacing:0.5px;">
                   <?php echo esc_html( $first_name ); ?><br><?php echo esc_html( $last_name ); ?>
                 </div>

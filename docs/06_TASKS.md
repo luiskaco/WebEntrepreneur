@@ -2,7 +2,7 @@
 
 ## In Progress
 - (Sin tareas activas)
-- [x] fix: marcas image stretching — cause: img tag styling overridden or browser object-fit bug; fix by using div background-image cover
+- [x] fix: marcas card stretching — cause: grid defaults to align-items: stretch, causing card to fill 480px min-height when only one row exists
 ## 1. Fase de Configuración Inicial [ ]
 - [ ] Crear estructura básica de tema WordPress (`style.css`, `index.php`, `header.php`, `footer.php`, `functions.php`).
 - [ ] Mover assets estáticos (`animations.css`, `animations.js`, `logo-empoderadas.png`) a la estructura del tema.

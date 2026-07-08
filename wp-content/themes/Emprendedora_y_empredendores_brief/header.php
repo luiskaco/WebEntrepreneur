@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="<?php echo esc_url( get_template_directory_uri() . '/favicon.png' ); ?>" type="image/x-icon">
 
-    <!-- SEO Meta Tags Fallback -->
-    <?php if ( ! class_exists( 'WPSEO_Options' ) && ! class_exists( 'RankMath' ) ) : ?>
-    <meta name="description" content="<?php bloginfo( 'description' ); ?>">
-    <?php endif; ?>
+    <!-- Custom Hardcoded SEO Meta Tags -->
+    <meta name="description" content="Descubre +100 marcas lideradas por mujeres en la feria que reúne moda, belleza y talento femenino peruano. 11-12 julio, Country Club San Isidro. ¡Ingreso libre!">
+    <meta name="keywords" content="feria de marcas femeninas Lima">
 
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,7 +88,9 @@
                 ?>
                 <a href="#marcas" class="eeNavLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; white-space:nowrap; text-shadow:0 1px 4px rgba(74,53,80,0.4);">MARCAS</a>
                 <a href="#agenda" class="eeNavLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; white-space:nowrap; text-shadow:0 1px 4px rgba(74,53,80,0.4);">AGENDA</a>
+                <a href="#mapa" class="eeNavLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; white-space:nowrap; text-shadow:0 1px 4px rgba(74,53,80,0.4);">MAPA</a>
                 <a href="#auspiciadores" class="eeNavLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; white-space:nowrap; text-shadow:0 1px 4px rgba(74,53,80,0.4);">AUSPICIADORES</a>
+                <a href="#registro" class="eeNavLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; white-space:nowrap; text-shadow:0 1px 4px rgba(74,53,80,0.4);">ÚNETE A NUESTRA COMUNIDAD</a>
                 <?php
             }
             ?>
@@ -117,7 +118,9 @@
                 ?>
                 <a href="#marcas" class="eeMobileLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.15);">MARCAS</a>
                 <a href="#agenda" class="eeMobileLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.15);">AGENDA</a>
-                <a href="#auspiciadores" class="eeMobileLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; padding:12px 0;">AUSPICIADORES</a>
+                <a href="#mapa" class="eeMobileLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.15);">MAPA</a>
+                <a href="#auspiciadores" class="eeMobileLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.15);">AUSPICIADORES</a>
+                <a href="#registro" class="eeMobileLink" style="color:#fff; text-decoration:none; font-family:'Obviously Narrow',sans-serif; font-size:15px; letter-spacing:1.5px; font-weight:600; padding:12px 0;">ÚNETE A NUESTRA COMUNIDAD</a>
                 <?php
             }
             ?>

@@ -402,8 +402,18 @@ function empoderadas_auto_setup_on_activation() {
                 'menu-item-status' => 'publish'
             ),
             array(
+                'menu-item-title'  => 'MAPA',
+                'menu-item-url'    => '#mapa',
+                'menu-item-status' => 'publish'
+            ),
+            array(
                 'menu-item-title'  => 'AUSPICIADORES',
                 'menu-item-url'    => '#auspiciadores',
+                'menu-item-status' => 'publish'
+            ),
+            array(
+                'menu-item-title'  => 'ÚNETE A NUESTRA COMUNIDAD',
+                'menu-item-url'    => '#registro',
                 'menu-item-status' => 'publish'
             ),
         );
@@ -505,7 +515,7 @@ function empoderadas_auto_setup_on_activation() {
             array(
                 'time'  => '06:00 p.m.',
                 'title' => 'Desfile de modas',
-                'tag'   => 'Conversatorio',
+                'tag'   => 'Desfile',
                 'day'   => '11',
                 'img'   => '11.webp'
             ),
@@ -1056,4 +1066,37 @@ add_action( 'wp_ajax_guardar_registro_cta', 'empoderadas_guardar_registro_cta' )
 add_action( 'wp_ajax_nopriv_guardar_registro_cta', 'empoderadas_guardar_registro_cta' );
 
 
+/* ==========================================================================
+   7. ACTUALIZACIÓN AUTOMÁTICA DE MENÚ (AUTOCURACIÓN)
+   ========================================================================== */
+function empoderadas_force_menu_update() {
+    $menu_name = 'Menú Principal Feria';
+    $menu = wp_get_nav_menu_object( $menu_name );
+    if ( $menu ) {
+        $menu_items = wp_get_nav_menu_items( $menu->term_id );
+        // Si la cantidad de elementos en base de datos es menor a 5, eliminamos y recreamos
+        if ( ! $menu_items || count( $menu_items ) !== 5 ) {
+            wp_delete_nav_menu( $menu->term_id );
+            empoderadas_auto_setup_on_activation();
+        }
+    }
 
+    // Actualizar tag de Desfile de modas en la base de datos si ya existe
+    $desfile_posts = get_posts( array(
+        'post_type'   => 'evento_agenda',
+        'title'       => 'Desfile de modas',
+        'numberposts' => -1
+    ) );
+    if ( $desfile_posts ) {
+        foreach ( $desfile_posts as $post ) {
+            update_post_meta( $post->ID, '_evento_tag', 'Desfile' );
+        }
+    }
+}
+add_action( 'init', 'empoderadas_force_menu_update' );
+
+
+// Forzar el Title Tag (SEO) directamente desde el código del tema
+add_filter( 'pre_get_document_title', function( $title ) {
+    return 'Empoderadas y Emprendedoras | Feria de Marcas Femeninas Lima';
+}, 999 );

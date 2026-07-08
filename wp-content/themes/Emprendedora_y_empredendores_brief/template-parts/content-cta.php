@@ -1,4 +1,4 @@
-<section class="home-cta-section">
+<section id="registro" class="home-cta-section">
     <!-- Bird Left -->
     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pajaro-izq.webp" alt="Decoración Izquierda" class="cta-bird cta-bird-left">
     
@@ -207,11 +207,11 @@
 }
 
 .cta-pill-pink {
-    background-color: #e28fae;
+    background-color: #e08dba;
 }
 
 .cta-pill-pink:hover {
-    background-color: #d17898;
+    background-color: #cf7ca8;
 }
 
 .cta-text-row {
@@ -409,6 +409,12 @@
     }
     .cta-bird-right {
         right: -40px;
+    }
+}
+
+@media (max-width: 820px) {
+    .cta-bird {
+        display: none;
     }
 }
 

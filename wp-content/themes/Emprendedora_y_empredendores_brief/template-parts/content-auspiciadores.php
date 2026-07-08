@@ -65,31 +65,34 @@ if ( $sponsors_query->have_posts() ) {
       <h2 style="font-family:'Obviously Narrow',sans-serif; font-weight:900; font-size:clamp(40px,6vw,64px); color:#fff; margin:0; letter-spacing:1px; text-transform:uppercase;">AUSPICIADORES</h2>
     </div>
     
-    <div style="display:flex; flex-direction:column; align-items:center; gap:48px; max-width:800px; margin:0 auto;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:32px; max-width:800px; margin:0 auto;">
       
       <?php if( !empty($sponsors[0]) ): ?>
       <!-- Sponsor Principal -->
       <div class="eeReveal" style="display:flex; justify-content:center; width:100%;">
-         <img src="<?php echo esc_url( $sponsors[0]['logo'] ); ?>" alt="Logo <?php echo esc_attr( $sponsors[0]['name'] ); ?>" class="ee-sponsor-logo" style="max-width:250px; width:100%; height:auto; object-fit:contain; mix-blend-mode:multiply;" />
+         <img src="<?php echo esc_url( $sponsors[0]['logo'] ); ?>" alt="Logo <?php echo esc_attr( $sponsors[0]['name'] ); ?>" class="ee-sponsor-logo" style="max-width:400px; max-height:160px; width:auto; height:auto; object-fit:contain; mix-blend-mode:multiply;" />
       </div>
       <?php endif; ?>
-
+ 
       <?php if( count($sponsors) > 1 ): ?>
       <!-- Sponsors Secundarios -->
       <div class="eeReveal" style="display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap; width:100%;">
         <?php for($i=1; $i<count($sponsors); $i++): ?>
           <?php 
+            $is_loa = (strpos(strtolower($sponsors[$i]['name']), 'loa') !== false || strpos(strtolower($sponsors[$i]['logo']), 'loa') !== false);
+            $max_height = $is_loa ? '45px' : '60px';
+            $max_width = $is_loa ? '130px' : '180px';
             // Aplicar multiply a jpeg/jpg para quitar fondo blanco si lo tienen
             $blend = (strpos($sponsors[$i]['logo'], '.jpg') !== false || strpos($sponsors[$i]['logo'], '.jpeg') !== false) ? 'mix-blend-mode:multiply;' : ''; 
           ?>
-          <img src="<?php echo esc_url( $sponsors[$i]['logo'] ); ?>" alt="Logo <?php echo esc_attr( $sponsors[$i]['name'] ); ?>" class="ee-sponsor-logo" style="max-width:200px; height:auto; object-fit:contain; <?php echo $blend; ?>" />
+          <img src="<?php echo esc_url( $sponsors[$i]['logo'] ); ?>" alt="Logo <?php echo esc_attr( $sponsors[$i]['name'] ); ?>" class="ee-sponsor-logo" style="max-width:<?php echo $max_width; ?>; max-height:<?php echo $max_height; ?>; width:auto; height:auto; object-fit:contain; <?php echo $blend; ?>" />
         <?php endfor; ?>
       </div>
       <?php endif; ?>
-
+ 
       <!-- Imagen Adicional de Café Centrada por debajo de los logos -->
-      <div class="eeReveal" style="display:flex; justify-content:center; width:100%; margin-top:20px;">
-          <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/cafe-auspiciador.png' ); ?>" alt="Auspiciador Café" class="ee-sponsor-logo" style="max-width:250px; height:auto; object-fit:contain;" />
+      <div class="eeReveal" style="display:flex; justify-content:center; width:100%; margin-top:5px;">
+          <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/cafe-auspiciador.png' ); ?>" alt="Auspiciador Café" class="ee-sponsor-logo" style="max-width:250px; max-height:85px; width:auto; height:auto; object-fit:contain;" />
       </div>
 
     </div>
