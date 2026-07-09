@@ -30,6 +30,23 @@ function empoderadas_setup() {
 add_action( 'after_setup_theme', 'empoderadas_setup' );
 
 /* ==========================================================================
+   1.5 GOOGLE ANALYTICS 4
+   ========================================================================== */
+function empoderadas_google_analytics() {
+    ?>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7C9CZG5QCK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7C9CZG5QCK');
+    </script>
+    <?php
+}
+add_action( 'wp_head', 'empoderadas_google_analytics', 1 );
+
+/* ==========================================================================
    2. ENCOLADO DE ASSETS (ESTILOS Y SCRIPTS)
    ========================================================================== */
 function empoderadas_enqueue_assets() {

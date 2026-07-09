@@ -75,7 +75,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
               <div style="width:5px; height:5px; background:#E595BB; transform:rotate(45deg);"></div>
               <div style="height:1.5px; background:#E595BB; flex-grow:1;"></div>
-              <h3 style="font-family:'Bernard MT', 'Cormorant Garamond', serif; font-weight:bold; font-size:32px; color:#E595BB; margin:0 12px; text-transform:none;">Marcas</h3>
+              <h3 style="font-family:'Obviously Narrow', sans-serif; font-weight:bold; font-size:32px; color:#E595BB; margin:0 12px; text-transform:none;">Marcas</h3>
               <div style="height:1.5px; background:#E595BB; flex-grow:1;"></div>
               <div style="width:5px; height:5px; background:#E595BB; transform:rotate(45deg);"></div>
             </div>
@@ -83,41 +83,139 @@ if ( ! defined( 'ABSPATH' ) ) {
 
           <!-- BUSCADOR -->
           <div style="margin-bottom: 16px;">
-            <input type="text" id="eeBrandSearch" placeholder="Buscar marca..." style="width:100%; padding:10px 16px; border:1.5px solid rgba(225, 142, 187, 0.5); border-radius:8px; font-family:'Oswald',sans-serif; font-size:16px; color:#4A3560; outline:none; box-sizing:border-box; background:#fff; transition:border 0.3s ease;" onfocus="this.style.borderColor='#E18EBB'" onblur="this.style.borderColor='rgba(225, 142, 187, 0.5)'">
+            <input type="text" id="eeBrandSearch" placeholder="Buscar marca..." style="width:100%; padding:10px 16px; border:1.5px solid rgba(225, 142, 187, 0.5); border-radius:8px; font-family:'Obviously Narrow',sans-serif; font-size:16px; color:#4A3560; outline:none; box-sizing:border-box; background:#fff; transition:border 0.3s ease;" onfocus="this.style.borderColor='#E18EBB'" onblur="this.style.borderColor='rgba(225, 142, 187, 0.5)'">
           </div>
 
-          <!-- CONTENEDOR CON SCROLL -->
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px 16px; font-family:'Oswald',sans-serif; font-size:13.5px; line-height:1.1; color:#4A3560; max-height: 480px; overflow-y: auto; padding-right:10px; align-content:start;" id="eeBrandGrid">
-            <?php
-            $marcas_lista = array(
-              "Asmi", "Macarons By Andrea", "Voluntarios", "Toscana", "Rulfa", 
-              "Miel de Abeja", "Kantu + Hecho", "Jumbis", "La Petite Butterfly", 
-              "Sara Handmade", "Origami Perú", "Macaroti + Mina", "Alces Aventura", 
-              "Dulzura Clandestina", "SOMOS", "Flor de Cerezo", "Lanamali", 
-              "Alta Costura", "Cosmeticos Belleza", "Mima spa centro", 
-              "La mujerona Boutique", "Rina Cafe", "Lía y lola Papelería", 
-              "Pilar y sus postres", "LH Accesorios", "Amelica", "ChocoAle", 
-              "AWKI", "Pasteleria", "La Cebra", "Vittoria", "Carolina Young", 
-              "Yulisa's Ice Cream", "Jazmin de Azahara", "Ymbabura perú", 
-              "Hilo el rey", "Aina", "Muki", "Mistura Cerámica", "Coral Cre",
-              "Envíos estudios", "Mediumscrema", "Valari", "Caca Coco swimwear", 
-              "Lulita Miracoles", "Mitty multi store", "Abyanta", "Alanna", 
-              "Ouni", "Monina Minis", "Sinca", "Cayetana", "Aina Fit", "Moda Fit", 
-              "Amarre", "Naturalmente", "Bocanero coffe", "StoryTelling mpi", 
-              "Lilolatta", "Moda Jane fina", "Camila y Ana", "Vitral Kelly",
-              "Joyería", "Fly style", "True Handmade", "Fantasia", "Libros underwear", 
-              "Yumi Ru", "Alomy", "Yolis / Azulca", "Bredel", "Alma Aneja", 
-              "Bebé", "Madre Selva", "Linda carteras", "Casa Sira", "ARUMAK"
-            );
-            
-            foreach($marcas_lista as $index => $marca) {
-                $num = str_pad($index + 1, 2, '0', STR_PAD_LEFT);
-                echo '<div class="ee-brand-item" style="display:flex; align-items:flex-start; gap:8px;">';
-                echo '<div style="background:#E18EBB; color:#fff; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; border-radius:3px; flex-shrink:0;">' . $num . '</div>';
-                echo '<span class="ee-brand-name" style="padding-top:3px;">' . esc_html($marca) . '</span>';
-                echo '</div>';
-            }
-            ?>
+          <!-- CONTENEDOR CON SCROLL: dos columnas verticales (01-52 | 53-677) -->
+          <?php
+          $marcas_col_a = array(
+            '01' => 'Kami',
+            '02' => 'Marjorie Ascorbe',
+            '03' => 'Velaroma',
+            '04' => 'Terrana',
+            '05' => 'Fialle',
+            '06' => 'Man-do Basic / Velaz luz y alma',
+            '07' => 'Kuntu / Hecho a mano',
+            '08' => 'Aurelia',
+            '09' => 'La Petite butterfly',
+            '10' => 'Sara Handmade',
+            '11' => 'Origen Perú',
+            '12' => 'Mazarah + Alma',
+            '13' => 'Moss Terrarium',
+            '14' => 'Balsamo / Doménica',
+            '15' => 'SCHÄTZE',
+            '16' => 'Flor de cerezo',
+            '17' => 'Lovandí',
+            '18' => 'Alba Clothes',
+            '19' => 'Louboutanicals / Cristalkind',
+            '20' => 'Wine spa centro corporal',
+            '21' => 'La mujerona Boutique',
+            '22' => 'Nina Sole',
+            '23' => 'Ele y Ale Papelería',
+            '24' => 'Pilar y sus postres de casa',
+            '25' => 'LF Accesorios',
+            '26' => 'Dalcello',
+            '27' => 'Sheycute',
+            '28' => 'Ininti / Samaynusta',
+            '29' => 'Pao Bedoya Velazquez',
+            '30' => 'La Cabra',
+            '31' => 'Gitana',
+            '32' => 'Hecho por Carolina Young',
+            '33' => 'Volans Fine jewerly',
+            '34' => 'Jasmine Fashion',
+            '35' => 'Yerbalivio peru',
+            '36' => 'Bites of Joy',
+            '37' => 'Aura',
+            '38' => 'Muki',
+            '39' => 'Matsuda cerámica',
+            '40' => 'Casa Lira',
+            '41' => 'AM/PM',
+            '42' => 'Kunanmi',
+            '43' => 'Benedetta',
+            '44' => 'Subtecarteras',
+            '45' => 'Petalia / Origen neutro',
+            '46' => 'Remax',
+            '47' => 'Zero',
+            '48' => 'Herrera cultura y joyería / Nomada Natural',
+            '49' => 'Mila Bonita',
+            '50' => 'Angel de Canela',
+            '51' => 'Zeekay Fashion',
+            '52' => 'Sissi Jewerly',
+          );
+          $marcas_col_b = array(
+            '53' => 'Eviext estudios y vida en el extranjero',
+            '54' => 'Modomacarena',
+            '55' => 'Yolett',
+            '56' => 'Casa Coco swinwear',
+            '57' => 'Leddu Minerales',
+            '58' => 'Matty multistore',
+            '59' => 'Mayanto',
+            '60' => 'Alzana',
+            '61' => 'Ilaini',
+            '62' => 'Marina Mora Escuela',
+            '63' => '5inco fashionwear',
+            '64' => 'Signature',
+            '65' => 'Ame',
+            '66' => 'Maria Fé',
+            '67' => 'Amarra',
+            '68' => 'Naturalmente Gourmet y crea detalles',
+            '69' => 'Baumann coffe',
+            '70' => 'Mary Rodriguez / Pakasqa',
+            '71' => 'Literaria',
+            '72' => 'Madu / Maria Jose fina',
+            '73' => 'Gomitas funcionales',
+            '74' => 'Vitamin Party',
+            '75' => 'Joyeria Fiorella',
+            '76' => 'Fly style',
+            '77' => 'Thak Handmade art',
+            '78' => 'Farmasi',
+            '79' => 'Libra underwear',
+            '80' => 'Vainilla',
+            '81' => 'Glowy',
+            '82' => 'Voila / Anima',
+            '83' => 'Rivellé',
+            '84' => 'Alma Bruja',
+            '85' => 'Breshó',
+            '86' => 'Madre Selva',
+            '87' => 'Liminal carteras',
+            '88' => 'Casa Siu',
+            '89' => 'MR White brand',
+            '90' => 'Amaranta',
+            '91' => 'Árgea',
+            '92' => 'Mia Lola',
+            '93' => 'Amaretti',
+            '94' => 'Puzzle / iscl foods',
+            '95' => 'Amonita Studio',
+            '96' => 'Vatina Candles',
+            'A'  => 'Somos Sebas y Pao',
+            'B'  => 'Casa Bella',
+            'C'  => 'Vaka',
+            'D'  => 'Anyo accesorios',
+            'E'  => 'Olivae',
+            '677'=> 'El balcón de las flores',
+          );
+
+          // Función helper para renderizar un ítem de marca
+          function ee_render_brand_item( $id, $nombre ) {
+              echo '<div class="ee-brand-item" style="display:flex; align-items:flex-start; gap:8px; margin-bottom:10px;">';
+              echo '<div style="background:#E18EBB; color:#fff; min-width:36px; height:30px; display:flex; align-items:center; justify-content:center; font-family:\'Acumin Variable Concept\',sans-serif; font-size:17px; font-weight:800; border-radius:4px; flex-shrink:0; padding:0 5px; letter-spacing:0; line-height:1; padding-top:2px;">' . esc_html($id) . '</div>';
+              echo '<span class="ee-brand-name" style="padding-top:6px; font-family:\'Obviously Narrow\',sans-serif; font-size:13.5px; line-height:1.25; color:#4A3560;">' . esc_html($nombre) . '</span>';
+              echo '</div>';
+          }
+          ?>
+
+          <div id="eeBrandGrid" style="display:flex; gap:16px; max-height:480px; overflow-y:auto; padding-right:8px;">
+
+            <!-- Columna A: 01 – 52 -->
+            <div class="ee-brand-col" style="flex:1; display:flex; flex-direction:column;">
+              <?php foreach ( $marcas_col_a as $id => $nombre ) { ee_render_brand_item( $id, $nombre ); } ?>
+            </div>
+
+            <!-- Columna B: 53 – 677 -->
+            <div class="ee-brand-col" style="flex:1; display:flex; flex-direction:column;">
+              <?php foreach ( $marcas_col_b as $id => $nombre ) { ee_render_brand_item( $id, $nombre ); } ?>
+            </div>
+
           </div>
         </div>
       </div>
