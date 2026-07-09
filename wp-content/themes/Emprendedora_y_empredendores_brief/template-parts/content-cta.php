@@ -8,23 +8,23 @@
     <div class="container text-center cta-content-wrapper">
         <h2 class="cta-title">¿LISTA PARA SABER MÁS DE NOSOTRAS?</h2>
 
-        <!-- Buttons Row -->
-        <div class="cta-pills-row">
-            <button class="cta-pill cta-pill-purple" onclick="openCtaModal('feriante')">
-                QUIERO SER FERIANTE
-            </button>
-            <button class="cta-pill cta-pill-pink" onclick="openCtaModal('comunidad')">
-                ÚNETE A NUESTRA COMUNIDAD
-            </button>
-        </div>
-
-        <!-- Text Row -->
-        <div class="cta-text-row">
-            <div class="cta-text-col">
-                Sé de las primeras en conocer las oportunidades para tu marca.
+        <!-- Columns Row -->
+        <div class="cta-columns-row">
+            <div class="cta-column-item">
+                <button class="cta-pill cta-pill-purple" onclick="openCtaModal('feriante')">
+                    QUIERO SER FERIANTE
+                </button>
+                <div class="cta-text-col">
+                    Sé de las primeras en conocer las oportunidades para tu marca.
+                </div>
             </div>
-            <div class="cta-text-col">
-                Sé parte de nuestra comunidad y recibe información sobre actividades especiales.
+            <div class="cta-column-item">
+                <button class="cta-pill cta-pill-pink" onclick="openCtaModal('comunidad')">
+                    ÚNETE A NUESTRA COMUNIDAD
+                </button>
+                <div class="cta-text-col">
+                    Sé parte de nuestra comunidad y recibe información sobre actividades especiales.
+                </div>
             </div>
         </div>
     </div>
@@ -164,32 +164,39 @@
     transform: translateY(0);
 }
 
-.cta-pills-row {
+.cta-columns-row {
     display: flex;
     justify-content: center;
-    align-items: stretch;
-    margin-bottom: 2rem;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    gap: 3rem;
     opacity: 0;
-    transform: scale(0.95);
+    transform: translateY(20px);
     transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
 }
 
-.home-cta-section.animate-active .cta-pills-row {
+.home-cta-section.animate-active .cta-columns-row {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
+}
+
+.cta-column-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .cta-pill {
-    flex: 1;
-    padding: 1.5rem;
+    width: 100%;
+    max-width: 340px;
+    padding: 1.5rem 1rem;
     color: #fff !important;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 600;
     text-transform: uppercase;
     border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -204,6 +211,7 @@
 
 .cta-pill-purple:hover {
     background-color: #7b6ba0;
+    transform: translateY(-2px);
 }
 
 .cta-pill-pink {
@@ -212,29 +220,15 @@
 
 .cta-pill-pink:hover {
     background-color: #cf7ca8;
-}
-
-.cta-text-row {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease 0.6s, transform 1s ease 0.6s;
-}
-
-.home-cta-section.animate-active .cta-text-row {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-2px);
 }
 
 .cta-text-col {
-    flex: 1;
     color: #555;
-    font-size: 1.2rem;
-    line-height: 1.5;
+    font-size: 1.15rem;
+    line-height: 1.4;
     font-weight: 500;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
     text-align: center;
     font-family: 'Oswald', sans-serif;
 }
@@ -423,19 +417,28 @@
         padding: 3rem 0;
     }
     
-    .cta-pills-row {
-        flex-direction: column;
-        border-radius: 15px;
+    .cta-title {
+        font-size: 1.6rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    .cta-columns-row {
+        flex-direction: column !important;
+        gap: 2.5rem !important;
+    }
+    
+    .cta-column-item {
+        gap: 1rem !important;
     }
     
     .cta-pill {
-        padding: 1.2rem;
+        padding: 1.2rem !important;
+        font-size: 1.1rem !important;
     }
 
-    .cta-text-row {
-        flex-direction: column;
-        gap: 2rem;
-        margin-top: 1rem;
+    .cta-text-col {
+        font-size: 1.1rem !important;
     }
 
     .cta-bird {

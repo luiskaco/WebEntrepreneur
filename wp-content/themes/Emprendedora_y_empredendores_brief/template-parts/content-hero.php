@@ -52,7 +52,7 @@ $slides = array(
         <?php echo esc_html( $hero_description ); ?>
       </div>
       
-      <div style="display:flex; gap:28px; flex-wrap:wrap; font-family:'Obviously Narrow',sans-serif;">
+      <div class="ee-hero-stats" style="display:flex; gap:28px; flex-wrap:wrap; font-family:'Obviously Narrow',sans-serif;">
         <div>
           <div style="font-weight:900; font-size:clamp(64px,9vw,90px); color:#fff; line-height:1;">
             +<span class="ee-counter" data-target="100">0</span>

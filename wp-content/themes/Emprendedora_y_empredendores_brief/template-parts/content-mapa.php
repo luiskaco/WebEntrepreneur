@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           
           <!-- LEYENDA SUPERPUESTA -->
           <div class="eeLegendOverlay" style="position:absolute; top:20px; left:20px; z-index:10; max-width:240px; text-align:left; display:flex; flex-direction:column; padding:0; pointer-events:none;">
-            <h3 style="font-family:'Anton',sans-serif; font-weight:normal; font-size:clamp(32px, 4vw, 48px); color:#8F77B4; margin:0 0 12px; letter-spacing:2px; text-transform:uppercase; line-height:1; transform: scaleY(1.1); transform-origin: left bottom; pointer-events:auto;">LEYENDA:</h3>
+            <h3 style="display:flex; justify-content:space-between; width:100%; font-family:'Anton',sans-serif; font-weight:normal; font-size:clamp(32px, 4vw, 48px); color:#8F77B4; margin:0 0 12px; text-transform:uppercase; line-height:1; transform: scaleY(1.1); transform-origin: left bottom; pointer-events:auto;"><span>L</span><span>E</span><span>Y</span><span>E</span><span>N</span><span>D</span><span>A</span></h3>
             
             <div style="background:#E18EBB; padding:20px 16px; border-radius:0; box-shadow:0 8px 24px rgba(74,53,80,0.15); pointer-events:auto;">
               <div style="display:flex; flex-direction:column; gap:20px;">
@@ -83,11 +83,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
           <!-- BUSCADOR -->
           <div style="margin-bottom: 16px;">
-            <input type="text" id="eeBrandSearch" placeholder="Buscar marca..." style="width:100%; padding:10px 16px; border:1.5px solid rgba(225, 142, 187, 0.5); border-radius:8px; font-family:'Obviously Narrow',sans-serif; font-size:16px; color:#4A3560; outline:none; box-sizing:border-box; background:#fff; transition:border 0.3s ease;" onfocus="this.style.borderColor='#E18EBB'" onblur="this.style.borderColor='rgba(225, 142, 187, 0.5)'">
+            <input type="text" id="eeBrandSearch" placeholder="Buscar marca..." style="width:100%; padding:10px 16px; border:1.5px solid rgba(225, 142, 187, 0.5); border-radius:8px; font-family:'Oswald',sans-serif; font-size:16px; color:#4A3560; outline:none; box-sizing:border-box; background:#fff; transition:border 0.3s ease;" onfocus="this.style.borderColor='#E18EBB'" onblur="this.style.borderColor='rgba(225, 142, 187, 0.5)'">
           </div>
 
           <!-- CONTENEDOR CON SCROLL -->
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px 16px; font-family:'Obviously Narrow',sans-serif; font-size:13.5px; line-height:1.1; color:#4A3560; max-height: 480px; overflow-y: auto; padding-right:10px; align-content:start;" id="eeBrandGrid">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px 16px; font-family:'Oswald',sans-serif; font-size:13.5px; line-height:1.1; color:#4A3560; max-height: 480px; overflow-y: auto; padding-right:10px; align-content:start;" id="eeBrandGrid">
             <?php
             $marcas_lista = array(
               "Asmi", "Macarons By Andrea", "Voluntarios", "Toscana", "Rulfa", 

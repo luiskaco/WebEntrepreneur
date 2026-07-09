@@ -4,7 +4,7 @@ Theme URI: https://orangelatam.com/
 Author: Orange Latam - Antigravity AI / Claude AI
 Author URI: https://orangelatam.com/
 Description: Tema premium autogestionable y autoinstalable para la feria de emprendedoras.
-Version: 1.0.5est
+Version: 1.0.7
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: empoderadas-theme
@@ -103,4 +103,27 @@ Text Domain: empoderadas-theme
 body {
     background-color: #FFF9FB;
     color: #4A3560;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .eeHeroFade {
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    .eeHeroFade h1 span {
+        white-space: normal !important;
+    }
+    .eeHeroFade > div {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .ee-hero-stats {
+        justify-content: center !important;
+    }
 }
