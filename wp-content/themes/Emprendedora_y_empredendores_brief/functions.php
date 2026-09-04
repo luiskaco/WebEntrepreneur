@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Formulario "Lectura de Tarot" (/laferia/tarot) — CPT, AJAX y sincronización con Google Sheets
+require_once get_template_directory() . '/inc/tarot-lectura.php';
+
 /* ==========================================================================
    1. SOPORTE DEL TEMA
    ========================================================================== */
@@ -386,6 +389,30 @@ function empoderadas_auto_setup_on_activation() {
     // Requerir el archivo de soporte de imágenes de administración de WordPress
     require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
+    // 6.0. Asegurar permalinks "bonitos" (requeridos para /marcas/, /laferia/tarot/, etc.)
+    // Si el sitio está en estructura "Plano" (por defecto en una instalación nueva),
+    // las URLs con slug de CPT y de páginas anidadas devuelven 404.
+    if ( '' === get_option( 'permalink_structure' ) ) {
+        update_option( 'permalink_structure', '/%postname%/' );
+    }
+
+    // 6.0.1. Autocuración del .htaccess: algunos hosts no detectan mod_rewrite vía la
+    // heurística nativa de WordPress y flush_rewrite_rules() nunca llega a escribir el
+    // archivo. Si el bloque de WordPress está vacío, lo regeneramos directamente.
+    global $wp_rewrite;
+    $htaccess_file = ABSPATH . '.htaccess';
+    if ( file_exists( $htaccess_file ) && is_writable( $htaccess_file ) ) {
+        $current_htaccess = file_get_contents( $htaccess_file );
+        if ( false === strpos( $current_htaccess, 'RewriteEngine' ) ) {
+            if ( ! function_exists( 'insert_with_markers' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/misc.php';
+            }
+            flush_rewrite_rules( false ); // Regenera la opción interna 'rewrite_rules' con los CPTs registrados
+            $rules = explode( "\n", $wp_rewrite->mod_rewrite_rules() );
+            insert_with_markers( $htaccess_file, 'WordPress', $rules );
+        }
+    }
+
     // 6.1. Crear la página de inicio si no existe
     $page_slug = 'feria-inicio';
     $page_title = 'Inicio Feria';
@@ -656,6 +683,45 @@ function empoderadas_auto_setup_on_activation() {
         }
     }
 
+    // 6.4.5. Crear página "La Feria" (padre) y "Tarot" (hija) para /laferia/tarot/
+    $laferia_slug = 'laferia';
+    $laferia_page = get_page_by_path( $laferia_slug );
+
+    if ( ! isset( $laferia_page->ID ) ) {
+        $laferia_id = wp_insert_post( array(
+            'post_type'   => 'page',
+            'post_title'  => 'La Feria',
+            'post_status' => 'publish',
+            'post_author' => 1,
+            'post_name'   => $laferia_slug,
+        ) );
+    } else {
+        $laferia_id = $laferia_page->ID;
+    }
+
+    if ( $laferia_id ) {
+        $tarot_page = get_page_by_path( $laferia_slug . '/tarot' );
+
+        if ( ! isset( $tarot_page->ID ) ) {
+            $tarot_id = wp_insert_post( array(
+                'post_type'   => 'page',
+                'post_title'  => 'Lectura de Tarot',
+                'post_status' => 'publish',
+                'post_author' => 1,
+                'post_parent' => $laferia_id,
+                'post_name'   => 'tarot',
+            ) );
+        } else {
+            $tarot_id = $tarot_page->ID;
+        }
+
+        if ( $tarot_id ) {
+            // Forzar la plantilla page-tarot.php (WordPress ya la detecta por convención de nombre,
+            // pero se fija explícitamente para evitar que un editor la cambie por accidente en el Customizer).
+            update_post_meta( $tarot_id, '_wp_page_template', 'page-tarot.php' );
+        }
+    }
+
     // 6.5. Asignar la imagen destacada de la página principal (Home) por defecto
     $front_page_id = get_option( 'page_on_front' );
     if ( ! $front_page_id ) {
@@ -694,6 +760,18 @@ function empoderadas_auto_setup_on_activation() {
     }
 }
 add_action( 'init', 'empoderadas_auto_setup_on_activation' );
+
+/**
+ * La página "laferia" es solo un contenedor jerárquico para que /laferia/tarot/
+ * funcione como URL anidada; no tiene diseño propio, así que redirige a Inicio.
+ */
+function empoderadas_redirect_laferia_parent_page() {
+    if ( is_page( 'laferia' ) ) {
+        wp_safe_redirect( home_url( '/' ), 301 );
+        exit;
+    }
+}
+add_action( 'template_redirect', 'empoderadas_redirect_laferia_parent_page' );
 
 
 /* ==========================================================================
