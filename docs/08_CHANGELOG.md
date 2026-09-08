@@ -1,5 +1,10 @@
 # 08_CHANGELOG.md — Historial de Versiones
 
+## [1.1.1] - 2026-09-08
+### Removido
+- Formulario "Lectura de Tarot" (`/laferia/tarot/`, `page-tarot.php`, `inc/tarot-lectura.php`, CPT `registro_tarot`) — migrado a `orange-la.com` (proyecto `orangeIA`), se elimina de este tema para no duplicar la funcionalidad. Páginas y registros del CPT borrados de la base de datos local y de producción.
+- Se conserva el fix de permalinks/`.htaccess` (sección 6.0/6.0.1 de `functions.php`) — no es parte del tarot, corrige un bug real preexistente en `/marcas/`.
+
 ## [1.1.0] - 2026-09-04
 ### Añadido
 - Página autoactivable `/laferia/tarot/` (`page-tarot.php`) para reservar turno de lectura de tarot (nombre, celular, correo).

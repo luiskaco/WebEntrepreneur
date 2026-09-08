@@ -1,6 +1,7 @@
 # 06_TASKS.md — Backlog Activo
 
 ## In Progress
+- [x] remove: formulario "Lectura de Tarot" eliminado de este proyecto — migrado a `orange-la.com` (`orangeIA`), no debe quedar duplicado acá. Borrados: `page-tarot.php`, `inc/tarot-lectura.php`, imágenes (`bg-tarot.webp`, `logo-alina.png`, `logo-la-feria.png`), páginas `laferia`/`tarot` y todos los posts del CPT `registro_tarot` (BD local y producción). Se conservó el fix de permalinks/`.htaccess`, que no es parte de esta feature.
 - [x] feat: página `/laferia/tarot/` con formulario de reserva (nombre, celular, correo) — se guarda como respaldo en WordPress (CPT `registro_tarot`) y se sincroniza en vivo con Google Sheets (Drive) vía cuenta de servicio. Nuevos archivos: `page-tarot.php`, `inc/tarot-lectura.php`. Pendiente: Luis debe crear la cuenta de servicio de Google Cloud y cargar las credenciales en `wp-config.php` para activar la sincronización (el formulario funciona igual mientras tanto, guardando solo en WordPress).
 - [x] update: modal de confirmación en `/laferia/tarot/` ("¡Gracias por tu suscripción!... nos contactaremos en la brevedad") tras enviar el formulario, con el form limpiándose automáticamente.
 - [x] update: `/laferia/tarot/` ahora es una landing standalone — se ocultó el header/menú compartido, se quitó el texto "Empoderadas y Emprendedoras" del hero, y se usa `assets/images/bg-tarot.webp` (provista por Luis) como fondo del hero.
