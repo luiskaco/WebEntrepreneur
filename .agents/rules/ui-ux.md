@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: Activar al construir o revisar interfaces, componentes visuales, formularios, estados de carga/error, accesibilidad, o meta tags/SEO de páginas
+description: Activar al construir o revisar interfaces, componentes visuales, formularios, estados de carga/error, accesibilidad, dark mode o i18n/traducciones
 ---
 
 # UI/UX Rules
@@ -22,6 +22,8 @@ description: Activar al construir o revisar interfaces, componentes visuales, fo
 | `error` | Mensaje de error + acción de recuperación |
 | `success` | Confirmación visual de acción completada |
 | `empty` | Mensaje útil cuando no hay datos — nunca UI rota |
+
+> Proyecto PWA: agregar `offline` como 6to estado obligatorio — ver `pwa.md`.
 
 ---
 
@@ -71,6 +73,67 @@ description: Activar al construir o revisar interfaces, componentes visuales, fo
 
 ---
 
+## Dark Mode
+
+- Tokens semánticos, nunca colores hardcodeados por tema:
+  `--bg-primary`, `--bg-surface`, `--text-primary`, `--text-secondary`,
+  `--border-default` — cada uno con valor light y dark, nunca `dark:bg-gray-900`
+  disperso por todo el código.
+- Contraste **4.5:1** normal / **3:1** texto grande en **ambos** temas — no
+  asumir que dark mode "ya es accesible" por ser oscuro. Verificar cada par
+  fondo/texto en los dos modos.
+- Fuente de la preferencia, en orden:
+  1. Selección explícita del usuario (persistida — cookie o `localStorage`,
+     nunca solo en memoria).
+  2. `prefers-color-scheme` del sistema si no hay selección explícita.
+  3. Nunca forzar un tema sin dar opción de cambiarlo.
+- Evitar negro puro (`#000`) sobre blanco puro (`#fff`) — usar grises con
+  tinte (`#0a0a0a` / `#fafafa`) para reducir fatiga visual y halation.
+- Imágenes/ilustraciones con fondo transparente o versión alternativa para
+  dark — nunca un PNG con fondo blanco flotando sobre `--bg-primary` oscuro.
+- Elevación (cards, modals, dropdowns) se comunica con **superficie más clara**
+  en dark mode, no con `box-shadow` — las sombras casi no se perciben sobre
+  fondos oscuros.
+- Sin flash de tema incorrecto al cargar (FOUC): aplicar el tema antes del
+  primer paint (script inline en `<head>` o SSR del tema desde cookie),
+  nunca setear la clase de tema en un `useEffect` post-hidratación.
+- `color-scheme: light dark` en `:root` para que scrollbars, inputs y
+  controles nativos del navegador respeten el tema automáticamente.
+
+---
+
+## i18n
+
+- Todo string visible al usuario vive en archivos de traducción
+  (`messages/es.json`, `messages/pt.json`, `messages/en.json`…) — nunca texto
+  hardcodeado en el componente, ni siquiera "temporalmente".
+- Key namespacing por módulo, no un solo archivo plano:
+  `checkout.errors.card_declined`, no `error_1` ni un `common.json` gigante.
+- Pluralización con las reglas del formato (ICU MessageFormat o el sistema del
+  framework — `next-intl`, `react-i18next`) — nunca `count === 1 ? "item" : "items"`
+  a mano, no todos los idiomas pluralizan en 2 formas (ej. español "1 producto"
+  / "2 productos" vs. otros idiomas con 3+ formas plurales).
+- Fechas, números, moneda y unidades siempre con `Intl.*` parametrizado por
+  locale — nunca formateo manual (`toLocaleDateString()` sin locale explícito
+  hereda el del server, no el del usuario). Refuerza la regla ya existente en
+  `§ Anti-patterns`.
+- Ruteo de idioma explícito en la URL (`/es/`, `/pt/`) — nunca solo por
+  cookie/header sin reflejarlo en la URL, rompe SEO multi-idioma y
+  compartir enlaces.
+- `hreflang` + `lang` en `<html>` correctos por página (ya cubierto en
+  `seo.md § SEO Multi-idioma`) — cada versión de idioma con su propio
+  `<link rel="alternate" hreflang="...">`.
+- Layout a prueba de expansión de texto: alemán/español pueden ser 30-40% más
+  largos que inglés — nunca `width` fijo en botones/labels que dependen de texto
+  traducido, usar `min-width` + contenido flexible.
+- Si el mercado lo requiere, `dir="rtl"` a nivel `<html>` y CSS lógico
+  (`margin-inline-start` en vez de `margin-left`) en vez de overrides por idioma.
+- Nunca concatenar strings traducidos para formar oraciones
+  (`t("hello") + " " + name + t("welcome")`) — el orden gramatical cambia
+  entre idiomas. Usar interpolación dentro de la key: `t("welcome", { name })`.
+
+---
+
 ## Performance Frontend
 
 - Lazy loading en imágenes below-fold (`loading="lazy"`).
@@ -115,6 +178,8 @@ description: Activar al construir o revisar interfaces, componentes visuales, fo
 - Cards dentro de cards
 - `bounce`/`elastic` easing
 - Purple-to-blue gradients por defecto
+- Colores de tema hardcodeados (`dark:bg-gray-900` disperso) en vez de tokens semánticos
+- Aplicar tema en `useEffect` post-hidratación (causa flash de tema incorrecto)
 
 ---
 
@@ -122,113 +187,29 @@ description: Activar al construir o revisar interfaces, componentes visuales, fo
 
 | Skill | Momento | Qué hace |
 |-------|---------|----------|
-| `ui-ux-pro-max` | Al **iniciar** una UI nueva | Genera sistema de diseño: estilo, paleta, tipografía por industria |
-| `impeccable` | Al **revisar** UI existente | Audita, pule y critica con 23 comandos |
+| `frontend-design` | Al **iniciar** UI nueva, con o sin sistema de diseño ya definido (caso habitual en Orange Latam) | Dirección estética — tipografía, jerarquía visual, evita defaults genéricos; infiere un sistema si no existe |
+| `impeccable` | Al **revisar** UI existente — requiere que `frontend-design` ya haya corrido antes | Audita, pule y critica con 23 comandos |
 | `web-design-guidelines` | Al **auditar** estándares | Verifica a11y, forms, performance técnica |
 
-**Nunca activar las 3 a la vez.** Elegir según el momento de la tarea.
+**Nunca activar más de 2-3 a la vez.** Elegir según el momento de la tarea.
 
 ### Jerarquía si hay conflicto
 
 1. `web-design-guidelines` — estándares técnicos (a11y, WCAG, forms)
-2. `ui-ux-pro-max` — sistema de diseño por industria
+2. `frontend-design` — sistema de diseño o dirección estética
 3. `impeccable` — vocabulario y auditoría de diseño
 
 ### Instalación
 
-```bash
-npm install -g uipro-cli && uipro init --ai antigravity
-npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines
-# impeccable: ver instrucciones en impeccable.style
-```
+Los comandos de instalación de cada skill viven en `tools-reference.md`
+(workflow `/tools-reference`) — fuente de verdad única, no se duplican acá.
 
 ---
 
-## SEO Técnico
+## SEO
 
-### Meta Tags Obligatorios (toda página)
-
-- `<title>` único y descriptivo — 50–60 caracteres máximo.
-- `<meta name="description">` — 120–160 caracteres, incluir keyword principal.
-- `<link rel="canonical">` siempre presente, incluso en la página principal.
-- `lang` en `<html>` con el idioma correcto (`es`, `en`, etc.).
-- `<meta name="robots">` explícito en páginas que no deben indexarse (`noindex, nofollow`).
-
-### Open Graph y Twitter Cards
-
-```html
-<!-- Open Graph -->
-<meta property="og:title" content="..." />
-<meta property="og:description" content="..." />
-<meta property="og:image" content="...1200x630.jpg" />
-<meta property="og:url" content="https://..." />
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="es_ES" />
-
-<!-- Twitter Cards -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="..." />
-<meta name="twitter:description" content="..." />
-<meta name="twitter:image" content="...1200x630.jpg" />
-```
-
-- Imagen OG: mínimo 1200×630px, < 1MB, formato JPG o PNG.
-- Nunca reutilizar el mismo `og:image` en todas las páginas.
-
-### Estructura Semántica para SEO
-
-- Un solo `<h1>` por página — describe el tema principal.
-- Jerarquía `<h1>`–`<h6>` sin saltos (refuerza la regla de accesibilidad).
-- `alt` descriptivo en todas las imágenes con contenido (no decorativas).
-- URLs en kebab-case, descriptivas, sin parámetros innecesarios.
-- `<a>` con texto descriptivo — nunca "click aquí" o "ver más" sin contexto.
-
-### Structured Data (Schema.org)
-
-- Agregar JSON-LD en páginas que lo justifican:
-  - Artículos: `Article` o `BlogPosting`
-  - Productos: `Product` con `offers`
-  - Organización: `Organization` en la home
-  - Breadcrumbs: `BreadcrumbList` en rutas anidadas
-
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "...",
-  "datePublished": "2026-01-01",
-  "author": { "@type": "Person", "name": "..." }
-}
-</script>
-```
-
-### Core Web Vitals como Ranking Factor
-
-Los mismos targets de performance ya definidos aplican directamente al SEO:
-
-- **LCP** < 2.5s (Largest Contentful Paint)
-- **CLS** < 0.1 (Cumulative Layout Shift) — ya cubierto por reglas de skeletons
-- **INP** < 200ms (Interaction to Next Paint)
-
-### Auditoría en CI
-
-- Lighthouse SEO score ≥ 90 antes de merge a `main`.
-- Lighthouse Performance score ≥ 80.
-- Herramienta recomendada: `@lhci/cli` (Lighthouse CI).
-
-```bash
-# Instalar y correr en CI
-npm install -g @lhci/cli
-lhci autorun
-```
-
-### Anti-patterns SEO — Nunca
-
-- Mismo `<title>` o `<meta description>` en múltiples páginas.
-- Páginas importantes con `noindex` accidentalmente.
-- Imágenes sin `alt` con contenido relevante.
-- Texto importante dentro de imágenes (no indexable).
-- `<h1>` ausente o múltiples `<h1>` en la misma página.
-- URLs con parámetros dinámicos sin canonical (`?page=1`, `?sort=asc`).
-- Contenido detrás de JavaScript sin SSR/SSG (no indexable por crawlers).
+El SEO técnico vive en su propia regla: **`seo.md`** — meta tags, Open Graph,
+structured data, canonical, hreflang y Core Web Vitals como ranking factor.
+Varias reglas de este archivo (`§ Accesibilidad`, `§ Skeletons`,
+`§ Performance Frontend`, `§ i18n`) tienen impacto SEO directo y están
+referenciadas desde ahí.

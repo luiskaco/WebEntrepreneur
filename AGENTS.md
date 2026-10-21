@@ -1,5 +1,197 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# AGENTS.md — Reglas del proyecto
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+Instrucciones para cualquier agente de IA que trabaje en este repo (estándar abierto [AGENTS.md](https://agents.md)). El proyecto puede continuarlo otra herramienta: estas reglas no dependen de ninguna.
+
+---
+
+## 0. Modo de Comunicación por Defecto
+
+Caveman lite activo siempre. Drop filler, hedging, pleasantries. Mantener gramática y precisión técnica.
+
+**Niveles disponibles:** `/caveman none|lite|full|ultra`
+
+| Nivel | Comportamiento |
+|-------|---------------|
+| `none` | Modo normal — sin compresión. Respuestas completas y fluidas |
+| `lite` | **Default.** Drop filler y hedging. Gramática intacta |
+| `full` | Fragmentos OK, sinónimos cortos, sin artículos |
+| `ultra` | Máxima compresión — abreviaciones, flechas de causalidad |
+
+**Auto-detección:** Si la conversación es planificación, arquitectura, revisión de decisiones o análisis — sugerir `/caveman none` una vez. No cambiar automáticamente.
+
+**Formato de cierre** — al terminar una tarea:
+
+1. **Primera línea:** el resultado en una frase ("Listo: …", o qué falta si quedó a medias).
+2. **Hasta 3 viñetas** con lo que cambia para el usuario — impacto, no listas de archivos, rutas ni valores (colores, tokens, hashes).
+3. **Revisión** en una línea, si hubo código (§ 8).
+4. **Una sola pregunta** al final, solo si hace falta una decisión o acción del usuario.
+
+Largo proporcional al cambio: un fix chico cierra en 2 líneas. Sin narrar el proceso ("primero revisé…, luego…"). Tablas solo para comparar opciones, no para informar. El detalle técnico, solo si el usuario lo pide.
+
+---
+
+## 1. Regla de Oro: Planificar Antes de Actuar
+
+**NUNCA generar código o modificar archivos sin pasar primero por estos 3 pasos:**
+
+1. **Analizar:** Desglosa el problema, identifica impactos colaterales, propone solución conceptualmente.
+2. **Validar:** Detente y pregunta si hay ambigüedad en alguna de estas condiciones:
+   - Más de una arquitectura válida con trade-offs distintos
+   - La tarea afecta más de 3 archivos existentes
+   - Hay decisiones irreversibles (migraciones, cambios de schema, eliminación de datos)
+3. **Ejecutar:** Solo cuando la estrategia esté clara y aprobada.
+
+---
+
+## 2. Principios
+
+- Sistemas seguros, escalables, mantenibles y listos para producción.
+- Priorizar: claridad, modularidad, simplicidad, reutilización.
+- Evitar: deuda técnica, hacks rápidos, sobreingeniería.
+- Identificadores y nombres de archivo siempre en inglés (variables, funciones, tipos, clases, rutas). Comentarios y documentación en español. Respuestas en el idioma del usuario.
+
+---
+
+## 3. Stack Base
+
+| Capa | Tecnología |
+|------|-----------|
+| Frontend | React / Next.js / Vue / Vanilla JS |
+| Backend | Node.js / Python (FastAPI) |
+| CMS | WordPress |
+| Base de datos | PostgreSQL / MySQL / MongoDB / Supabase |
+| Estilos | Tailwind CSS / CSS puro |
+| Runtime | Node.js 20+ / Python 3.11+ |
+
+**📌 Versiones actualizadas — regla obligatoria:**
+
+Antes de escribir o sugerir código que use una librería, framework, SDK o CLI (React, Next.js, Prisma, Tailwind, FastAPI, etc.):
+
+1. **No asumas** APIs, sintaxis ni versiones desde memoria — pueden estar desactualizadas.
+2. **Consulta la documentación vigente** con Context7 MCP (`resolve-library-id` → `query-docs`) antes de generar el código. Si no está disponible, usa web search.
+3. **Respeta el lockfile del proyecto:** revisa `package.json` / `requirements.txt` / `pyproject.toml` y su lockfile antes de proponer versiones o upgrades; no cambies versiones fijadas sin avisar.
+4. **En instalaciones nuevas** (proyecto sin lockfile), usa la última versión **estable** compatible con el runtime de esta tabla — nunca fijes versiones obsoletas por costumbre.
+
+---
+
+## 4. Naming & Git
+
+**Naming:** `kebab-case` archivos · `camelCase` variables · `PascalCase` clases · `UPPER_SNAKE_CASE` constantes · `/api/v1/recursos` endpoints
+
+**Commits:** Conventional Commits — `feat` / `fix` / `refactor` / `docs` / `chore` / `perf`
+
+**Tasks:** Cuando el usuario mencione modificaciones, cambios o nuevas funcionalidades — actualizar el archivo de tareas activo del proyecto (`06_TASKS.md` o equivalente) antes de codificar.
+
+---
+
+## 5. Documentación del Proyecto `/docs`
+
+| Archivo | Propósito |
+|---------|-----------|
+| `01_PROJECT_PRD.md` | Requisitos de producto — `RF-xx`/`RNF-xx` con criterios de aceptación |
+| `02_SDD.md` | Diseño del sistema |
+| `03_SYSTEM_SPEC.md` | Especificaciones técnicas |
+| `04_DATA_MODEL.md` | Esquemas y entidades |
+| `05_ARCHITECTURE.md` | Decisiones arquitectónicas |
+| `06_TASKS.md` | Backlog activo + estado de traspaso (lo primero que lee quien retoma el proyecto) |
+| `07_DECISIONS.md` | ADRs |
+| `08_CHANGELOG.md` | Historial de versiones |
+| `09_TESTING.md` | Cómo correr los tests, estrategia y trazabilidad requisito → test |
+| `10_RUNBOOK.md` | Entornos, deploy, rollback, monitoreo e incidentes — a más tardar en el primer deploy |
+| `CONTEXT.md` | Glosario del dominio — sin numerar: es un glosario vivo, no un documento de fase (opcional, desde 3 términos) |
+
+Actualizar el archivo correspondiente al completar cada tarea.
+
+**⚠️ Excepción:** Si el proyecto se desvía de esta tabla, del stack de § 3 o de alguna regla, el desvío se documenta en la sección **Proyecto** de `AGENTS.md` (raíz del proyecto), que tiene prioridad sobre ellas.
+
+---
+
+## 6. Jerarquía de Reglas
+
+1. Este archivo de memoria del proyecto — máxima prioridad
+2. Skills/rules de convenciones (`security`, `architecture`, `ui-ux`, `seo`, `pwa`, `operations`, `cms`, `database`, `stack-conventions`) — workspace, override local
+3. Comandos/workflows (`/grill`, `/new-feature`, `/bug-fix`, `/security-audit`, `/deploy-checklist`, `/session-close`, `/tools-reference`) — checklists operativos que se ejecutan en un momento puntual; cuando un comando resume una convención que también vive en una skill/rule, esa skill/rule es la fuente de verdad si hay discrepancia
+4. Resto de skills según contexto del proyecto
+
+---
+
+## 7. Comandos Disponibles
+
+Invocar con `/` si tu herramienta los expone como comandos; si no, ver **Mapa del proyecto** más abajo:
+
+| Comando | Cuándo |
+|---------|--------|
+| `/grill` | Antes de `/new-feature`, cuando el plan todavía es difuso — la IA interroga hasta afilarlo |
+| `/new-feature` | Antes de iniciar cualquier tarea nueva |
+| `/bug-fix` | Cuando algo está roto — identifica causa raíz antes de codificar |
+| `/session-close` | Al terminar el día o una tarea — actualiza docs y genera commit |
+| `/security-audit` | Antes de subir features con auth, APIs o datos sensibles |
+| `/deploy-checklist` | Antes de merge a main o deploy a producción |
+| `/tools-reference` | Setup inicial o cuando necesites ver skills y herramientas disponibles |
+| `/caveman none\|lite\|full\|ultra` | Cambiar nivel de compresión de respuestas |
+
+---
+
+## 8. Auto-revisión Interna
+
+Aplicar solo en tareas que generen, modifiquen o revisen código — omitir en consultas informativas.
+
+**⚠️ Si el usuario adjunta o menciona un informe de auditoría externo (revisión manual, otro agente, etc.) — el Inspector no ejecuta. La auditoría ya fue realizada. Solo implementar las correcciones indicadas.**
+
+Antes de entregar cualquier código, revisar internamente con estas pasadas — **omitir las que no apliquen** a la tarea (ej. ⚙️ en un cambio solo visual):
+
+- **🎨 Frontend:** presentación — mobile-first, 5 estados de UI, accesibilidad, estética
+- **⚙️ Backend:** lógica, endpoints, datos — seguridad, modularidad, validación
+- **🧪 Verificado:** qué se ejecutó de verdad — build, tests, flujo probado. Nunca dar por probado lo que no se corrió
+- **📝 Docs:** `06_TASKS.md` (con el estado de traspaso), `08_CHANGELOG.md` y el ADR si hubo decisión — al día
+- **🔍 Inspector:** audita contra las skills/rules de seguridad, ui-ux y arquitectura — si detecta problema crítico, bloquea entrega y corrige primero
+- **⚠️ Riesgo:** solo si hubo algo irreversible — migración, borrado de datos, push o deploy a producción
+
+**Reporte al usuario:** una sola línea al final del cierre (§ 0), en texto normal — nunca en bloque de código. Pasada sin observaciones: `✅`. 🧪 dice qué se ejecutó. Solo se explica, en pocas palabras, la pasada que encontró o corrigió algo:
+
+> Revisión: 🎨 ✅ · ⚙️ ✅ · 🧪 build + tests · 📝 ✅ · 🔍 ✅
+
+> Revisión: 🎨 ✅ · 🧪 sin verificar: no hay tests · 📝 falta CHANGELOG · 🔍 corregido: XSS en el formulario · ⚠️ push a main
+
+---
+
+## Mapa del proyecto
+
+Este proyecto se armó con el kit de **Antigravity** de AI Rules Hub, pero
+cualquier agente puede continuarlo: todo lo que necesita está en el repo, en
+archivos markdown planos.
+
+| Qué | Dónde |
+|---|---|
+| Rules técnicas (§ 6, punto 2) | `.agents/rules/<regla>.md` — leer la que aplique antes de tocar esa área |
+| Skills | `.agents/skills/` — una carpeta por skill, con su `SKILL.md` |
+| Subagentes | `.agents/agents/<nombre>/agent.md` |
+| Comandos / workflows (§ 7) | `.agents/skills/<comando>/SKILL.md` |
+| Estado del proyecto | `docs/` — ver "Continuar el trabajo" |
+
+Este repo también usa Claude Code: su equivalente está en `.claude/` (`skills/`, `commands/`, `agents/`) y sus instrucciones en `CLAUDE.md`.
+
+### Continuar el trabajo
+
+1. **Antes de empezar:** leer en `docs/06_TASKS.md` la sección **Estado de
+   traspaso** (dónde quedó, próximo paso, bloqueos) y después
+   `docs/07_DECISIONS.md` (lo ya decidido — no re-decidirlo). Si este
+   proyecto se desvía de alguna regla, está en la sección **Proyecto** de abajo.
+2. **Para verificar tu trabajo:** `docs/09_TESTING.md` dice cómo correr los
+   tests y qué requisito (`RF-xx` de `docs/01_PROJECT_PRD.md`) cubre cada uno.
+   Para desplegar u operar: `docs/10_RUNBOOK.md`.
+3. **Comandos de § 7:** si tu herramienta no los expone, leé el archivo del
+   workflow y seguí sus pasos a mano.
+4. **Al cerrar una tarea:** actualizar `docs/06_TASKS.md` — incluido el Estado
+   de traspaso — y el documento que corresponda según § 5.
+
+---
+
+## Proyecto
+
+> Datos reales de este proyecto, tomados de su README, PRD y `CLAUDE.md`. Lo que se anote acá tiene prioridad sobre las reglas de arriba (§ 5). Revisar y completar.
+
+- **Qué es:** sitio oficial de la Feria Empoderadas y Emprendedoras: tema WordPress custom, autogestionable y de alta velocidad (agenda dinámica que alterna el día 11 o 12 según la fecha del servidor, carrusel de expositoras).
+- **Stack real:** WordPress con tema custom (`Emprendedora_y_empredendores_brief`), HTML5 semántico, JavaScript nativo y CSS puro, sin frameworks pesados. Sin `package.json` en la raíz ni build step: se desarrolla y prueba en local con Laragon (carpeta `www`).
+- **Flujo híbrido:** Gemini/Antigravity genera el código de producción; Claude actúa como PM + auditor, revisa lo que Gemini entrega y deja sus observaciones en `REVIEW.md`. Claude solo escribe código de producción si Luis activa el Modo Desarrollador. El detalle del protocolo está en `CLAUDE.md`.
+- **Documentación:** Convención `docs/01`–`10` del kit.

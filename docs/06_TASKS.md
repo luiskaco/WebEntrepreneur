@@ -1,5 +1,15 @@
 # 06_TASKS.md — Backlog Activo
 
+## Estado de traspaso
+
+> Lo primero que lee quien retome el proyecto — persona u otra IA. Se reescribe al cerrar cada sesión (`/session-close`).
+
+- **Última actualización:** 2026-10-21 (generado al migrar el proyecto a la estructura nueva del kit; revisar).
+- **Dónde quedó:** último trabajo en el repo: `61e9bab` (2026-09-08) — fix: eliminar formulario Lectura de Tarot (migrado a orange-la.com).
+- **Próximo paso concreto:** _por definir_ — completar en el próximo cierre de sesión.
+- **Bloqueos:** ninguno registrado.
+- **No tocar:** ninguno registrado.
+
 ## In Progress
 - [x] remove: formulario "Lectura de Tarot" eliminado de este proyecto — migrado a `orange-la.com` (`orangeIA`), no debe quedar duplicado acá. Borrados: `page-tarot.php`, `inc/tarot-lectura.php`, imágenes (`bg-tarot.webp`, `logo-alina.png`, `logo-la-feria.png`), páginas `laferia`/`tarot` y todos los posts del CPT `registro_tarot` (BD local y producción). Se conservó el fix de permalinks/`.htaccess`, que no es parte de esta feature.
 - [x] feat: página `/laferia/tarot/` con formulario de reserva (nombre, celular, correo) — se guarda como respaldo en WordPress (CPT `registro_tarot`) y se sincroniza en vivo con Google Sheets (Drive) vía cuenta de servicio. Nuevos archivos: `page-tarot.php`, `inc/tarot-lectura.php`. Pendiente: Luis debe crear la cuenta de servicio de Google Cloud y cargar las credenciales en `wp-config.php` para activar la sincronización (el formulario funciona igual mientras tanto, guardando solo en WordPress).
