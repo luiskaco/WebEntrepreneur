@@ -148,13 +148,3 @@ Para minimizar consumo de tokens en respuestas:
 3. Docs específicos del proyecto compartidos en el chat (`02_SDD.md`, `03_SYSTEM_SPEC.md`, etc.).
 
 ---
-
-## 12. CODEBASE KNOWLEDGE GRAPH (MCP)
-
-El proyecto utiliza `codebase-memory-mcp` para mantener un grafo de conocimiento del código.
-Claude debe priorizar la consulta del grafo usando el CLI del servidor MCP en lugar de búsquedas `grep` genéricas:
-
-* **Búsqueda de símbolos**: `& "C:\Users\orange_tech\AppData\Local\Programs\codebase-memory-mcp\codebase-memory-mcp.exe" cli search_graph '{"project": "C-Users-orange_tech-Desktop-developOrange-makeOLatamAds", "name_pattern": "Patrón"}'`
-* **Indexar / Reindexar**: `& "C:\Users\orange_tech\AppData\Local\Programs\codebase-memory-mcp\codebase-memory-mcp.exe" cli index_repository '{"repo_path": "c:\Users\orange_tech\Desktop\developOrange\makeOLatamAds"}'`
-* **Otras herramientas del CLI**: `search_graph`, `query_graph`, `trace_path`, `get_code_snippet`, `get_architecture`.
-
